@@ -1,12 +1,47 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo-List</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+    <div class="container">
+        <div class="navigation-bar">
+            <div class="top-bar">
+                <div class="user-info">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <p class="user-name">Hello User</p>
+                </div>
+                <i class="fa fa-bars nav-icon" aria-hidden="true"></i>
+            </div>
+            
+            <div class="nav-items">
+                <ul>
+                    <li><i class="fa fa-plus-circle"></i> Add Tasks</li>
+                    <li><i class="fa fa-calendar-day"></i> Today</li>
+                    <li><i class="fa fa-filter"></i> Filters</li>
+                </ul>
+            </div>
+            
+            <div class="project-list">
+                <h3><i class="fa fa-folder"></i> My Projects</h3>
+                <ul></ul>
+            </div>
+        </div>
+        
+        <div class="main">
+            <h2>Today</h2>
+            <div class="today-view">
+                <h3>Welcome to your Today view</h3>
+                <p>See everything due today across all your projects.</p>
+                <button><i class="fa fa-plus"></i> Add Task</button>
+            </div>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>

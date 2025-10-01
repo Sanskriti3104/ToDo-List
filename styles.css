@@ -1,5 +1,184 @@
-*{
+/* General reset */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #fdfbfb, #ebedee);
+    color: #333;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.navigation-bar {
+    width: 260px;
+    background: #ffffff;
+    border-right: 1px solid #e2e6ec;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+/* User Info */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info i {
+    font-size: 22px;
+    color: #4e73df;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #2f3640;
+}
+
+.nav-icon {
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.nav-icon:hover {
+    color: #4e73df;
+}
+
+/* Navigation Items */
+.nav-items ul {
+    list-style: none;
+}
+
+.nav-items li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #444;
+    font-size: 15px;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.nav-items li i {
+    font-size: 16px;
+    color: #4e73df;
+    transition: color 0.3s;
+}
+
+.nav-items li:hover {
+    color: #4e73df;
+    font-size: 16px;
+    transform: translateX(3px);
+}
+
+/* Project Section */
+.project-list {
+    margin-top: 40px;
+}
+
+.project-list h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #777;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-list i {
+    color: #f6c23e;
+}
+
+.project-list ul {
+    list-style: none;
+}
+
+/* Main content */
+.main {
+    flex: 1;
+    padding: 40px;
+    background: #f9fafc;
+    position: relative;
+}
+
+.main h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2f3640;
+    margin-bottom: 20px;
+}
+
+.today-view {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.today-view h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2f3640;
+}
+
+.today-view p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Add Task Button */
+.today-view button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #4e9af1, #4e73df);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(78, 115, 223, 0.25);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.today-view button i {
+    font-size: 16px;
+}
+
+.today-view button:hover {
+    background: linear-gradient(135deg, #5aa5ff, #516bdf);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(78, 115, 223, 0.35);
 }
