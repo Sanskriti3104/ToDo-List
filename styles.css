@@ -198,7 +198,7 @@ body {
 /* Input fields */
 #taskForm input[type="text"] {
     width: 100%;
-    padding: 8px; 
+    padding: 8px;
     margin: 6px 0;
     border: none;
     border-radius: 6px;
@@ -221,7 +221,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 6px;
     outline: none;
-    background: #fff; 
+    background: #fff;
     color: #333;
     font-size: 14px;
 }
@@ -251,10 +251,46 @@ body {
 }
 
 .submitBtn {
-    background: #28a745;
+    background: #516bdf;
     color: #fff;
 }
 
 .submitBtn:hover {
-    background: #218838;
+    background: #516bdf;
+}
+
+.submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.task-list{
+    display: none;
+}
+
+.task-list ul {
+    list-style: circle;
+    padding: 0;
+}
+
+.task-list .task-item {
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.task-list .task-item strong {
+    font-size: 16px;
+    color: #2f3640;
+}
+
+.task-list .task-item p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.task-list .task-item small {
+    color: #777;
+    font-size: 12px;
 }

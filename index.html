@@ -42,7 +42,11 @@
                 <p>See everything due today across all your projects.</p>
                 <button id="showFormBtn"><i class="fa fa-plus add-task"></i> Add Task</button>
             </div>
-            <form id="taskForm" action="submit">
+            <div>
+                <div class="task-list">
+                    <ul></ul>
+                </div>
+                <form id="taskForm" action="submit">
                 <div class="task-content">
                     <input type="text" placeholder="Task Title" name="title" class="task-title"><br>
                     <input type="text" placeholder="Task Description" name="description" class="task-description"><br>
@@ -57,9 +61,11 @@
                 </div>
                 <div class="form-buttons">
                     <button type="button" id="cancelBtn">Cancel</button>
-                    <button type="submit" class="submit-btn">Add Task</button>
+                    <button id="showFormBtn" class="submitBtn" disabled><i class="fa fa-plus"></i> Add Task</button>
+            </div>
                 </div>
             </form>
+            </div>
         </div>
     </div>
     <script src="app.js"></script>
