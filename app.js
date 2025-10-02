@@ -39,3 +39,22 @@ function createProjectManager() {
         }
     };
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const addTaskBtn = document.querySelector(".today-view button"); 
+    const todayView = document.querySelector(".today-view");
+    const taskForm = document.getElementById("taskForm");
+    const cancelBtn = document.getElementById("cancelBtn");
+
+    // Show form on "Add Task" click
+    addTaskBtn.addEventListener("click", () => {
+        todayView.style.display = "none";
+        taskForm.style.display = "block";
+    });
+
+    // Hide form on "Cancel" click
+    cancelBtn.addEventListener("click", () => {
+        taskForm.style.display = "none";
+        todayView.style.display = "flex";
+    });
+});
