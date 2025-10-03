@@ -40,37 +40,6 @@ function createProjectManager() {
     };
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     const addTaskBtn = document.querySelector(".today-view button"); 
-//     const todayView = document.querySelector(".today-view");
-//     const taskForm = document.getElementById("taskForm");
-//     const cancelBtn = document.getElementById("cancelBtn");
-
-//     // Show form on "Add Task" click
-//     addTaskBtn.addEventListener("click", () => {
-//         todayView.style.display = "none";
-//         taskForm.style.display = "block";
-//     });
-
-//     // Hide form on "Cancel" click
-//     cancelBtn.addEventListener("click", () => {
-//         taskForm.style.display = "none";
-//         todayView.style.display = "flex";
-//     });
-
-//     // Enable/disable submit button based on form inputs
-//     taskForm.addEventListener("input", () => {
-//         const title = taskForm.querySelector(".task-title").value.trim();
-//         //const description = taskForm.querySelector(".task-description").value.trim();
-//         //const dueDate = taskForm.querySelector(".task-date").value;
-//         //const priority = taskForm.querySelector(".task-priority").value;
-
-//         //const isFormValid = title && description && dueDate && priority;
-//         const isFormValid = title;
-//         document.querySelector(".submitBtn").disabled = !isFormValid;
-//     });
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
     const addTaskBtn = document.querySelector(".today-view button"); 
     const todayView = document.querySelector(".today-view");
