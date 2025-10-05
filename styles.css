@@ -294,3 +294,39 @@ body {
     color: #777;
     font-size: 12px;
 }
+
+.project-list ul li {
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+}
+
+.project-list ul li:hover {
+    background: #f1f4ff;
+    color: #4e73df;
+}
+
+.project-list ul li.active {
+    background: #e8ecff;
+    font-weight: 600;
+    color: #4e73df;
+}
+
+.project-list button {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: #4e73df;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.project-list button:hover {
+    background: #3b5fd1;
+}
