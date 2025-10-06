@@ -53,17 +53,6 @@ body {
     color: #2f3640;
 }
 
-.nav-icon {
-    font-size: 20px;
-    cursor: pointer;
-    color: #666;
-    transition: color 0.3s;
-}
-
-.nav-icon:hover {
-    color: #4e73df;
-}
-
 /* Navigation Items */
 .nav-items ul {
     list-style: none;
@@ -116,6 +105,42 @@ body {
 
 .project-list ul {
     list-style: none;
+}
+
+.project-list ul li {
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+}
+
+.project-list ul li:hover {
+    background: #f1f4ff;
+    color: #4e73df;
+}
+
+.project-list ul li.active {
+    background: #e8ecff;
+    font-weight: 600;
+    color: #4e73df;
+}
+
+.project-list button {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: #4e73df;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.project-list button:hover {
+    background: #3b5fd1;
 }
 
 /* Main content */
@@ -293,40 +318,4 @@ body {
 .task-list .task-item small {
     color: #777;
     font-size: 12px;
-}
-
-.project-list ul li {
-    padding: 8px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #333;
-    transition: background 0.3s, color 0.3s;
-}
-
-.project-list ul li:hover {
-    background: #f1f4ff;
-    color: #4e73df;
-}
-
-.project-list ul li.active {
-    background: #e8ecff;
-    font-weight: 600;
-    color: #4e73df;
-}
-
-.project-list button {
-    margin-top: 10px;
-    padding: 8px 10px;
-    background: #4e73df;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s;
-}
-
-.project-list button:hover {
-    background: #3b5fd1;
 }

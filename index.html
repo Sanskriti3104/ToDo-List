@@ -17,7 +17,6 @@
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p class="user-name">Hello User</p>
                 </div>
-                <i class="fa fa-bars nav-icon" aria-hidden="true"></i>
             </div>
 
             <div class="nav-items">
@@ -47,26 +46,27 @@
                     <ul></ul>
                 </div>
                 <form id="taskForm" action="submit">
-                <div class="task-content">
-                    <input type="text" placeholder="Task Title" name="title" class="task-title"><br>
-                    <input type="text" placeholder="Task Description" name="description" class="task-description"><br>
-                </div>
-                <div class="task-info">
-                    <input type="date" name="due-date" class="task-date">
-                    <select name="priority" class="task-priority">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-                </div>
-                <div class="form-buttons">
-                    <button type="button" id="cancelBtn">Cancel</button>
-                    <button id="showFormBtn" class="submitBtn" disabled><i class="fa fa-plus"></i> Add Task</button>
+                    <div class="task-content">
+                        <input type="text" placeholder="Task Title" name="title" class="task-title"><br>
+                        <input type="text" placeholder="Task Description" name="description"
+                            class="task-description"><br>
+                    </div>
+                    <div class="task-info">
+                        <input type="date" name="due-date" class="task-date">
+                        <select name="priority" class="task-priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" id="cancelBtn">Cancel</button>
+                        <button id="showFormBtn" class="submitBtn" disabled><i class="fa fa-plus"></i> Add Task</button>
+                    </div>
             </div>
-                </div>
             </form>
-            </div>
         </div>
+    </div>
     </div>
     <script src="app.js"></script>
 </body>

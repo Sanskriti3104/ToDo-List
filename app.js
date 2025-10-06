@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const todayProject = createProject("Today");
     projectManager.addProject(todayProject);
 
-    //Display "Tpday" project in sidebar 
+    //Display "Today" project in sidebar
     const todayLi = document.createElement("li");
     todayLi.textContent = todayProject.title;
     todayLi.classList.add("project-item", "active");
@@ -156,17 +156,17 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add to task list
         taskListContainer.appendChild(li);
 
-        // 1️⃣ Find the currently active project
+        // Find the currently active project
         const activeProjectName = document.querySelector(".project-item.active").textContent;
         const activeProject = projectManager.getProject(activeProjectName);
 
-        // 2️⃣ Create a new todo object
+        //Create a new todo object
         const newTodo = createTodo(title, description, dueDate, priority);
 
-        // 3️⃣ Add todo to the selected project
+        //Add todo to the selected project
         activeProject.addTodo(newTodo);
 
-        // 4️⃣ Re-render the updated task list
+        //Re-render the updated task list
         renderTasks(activeProject);
         // Clear only inputs, keep form visible for next task
         taskForm.reset();
