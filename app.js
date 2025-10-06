@@ -50,6 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.querySelector(".submitBtn");
     const projectList = document.querySelector(".project-list ul");
     const addProjectBtn = document.querySelector(".project-list button");
+    const projectForm = document.querySelector(".project-form");
+    const projectNameInput = document.querySelector(".project-form input");
+    const cancelProjectBtn = document.querySelector("#cancelProjectBtn");
+    const saveProjectBtn = document.querySelector("#saveProjectBtn");
     const heading = document.querySelector(".main h2");
 
     // Create project manager and default "today" project
@@ -80,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //Function to handle form closing 
-    function closeForm(e){
+    function closeForm(e) {
         taskForm.reset();
         taskForm.style.display = "none";
         taskListBtn.style.display = "flex";
@@ -108,7 +112,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Function to add new Project
     addProjectBtn.addEventListener("click", () => {
-        const projectName = prompt("Enter project name:");
+        addProjectBtn.style.display = "none";
+        projectForm.style.display = "flex";
+        projectNameInput.focus();
+    });
+
+    //Function to cancel project creation
+    function cancelProjectCreation() {
+        projectForm.reset();
+        projectForm.style.display = "none";
+        addProjectBtn.style.display = "block";
+    }
+
+    //Cancel project creation
+    cancelProjectBtn.addEventListener("click", cancelProjectCreation);
+
+    // Enable/disable submit button based on project title input
+    projectForm.addEventListener("input", () => {
+        const title = projectNameInput.value.trim();
+        saveProjectBtn.disabled = !title;
+    });
+
+    //Handle project form submission
+    projectForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const projectName = projectNameInput.value.trim();
         if (!projectName) return;
 
         const newProject = createProject(projectName);
@@ -119,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         li.classList.add("project-item");
         projectList.appendChild(li);
 
+        cancelProjectCreation();
         // Switch to the new project
         handleProjectSwitch({ target: li });
     })

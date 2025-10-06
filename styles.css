@@ -58,7 +58,7 @@ body {
     list-style: none;
 }
 
-.nav-items li, .task-list button {
+.nav-items li, .task-list button, .project-list > button {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -70,13 +70,13 @@ body {
     transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
-.nav-items li i, .task-list button i {
+.nav-items li i, .task-list button i, .project-list button i {
     font-size: 16px;
     color: #4e73df;
     transition: color 0.3s;
 }
 
-.nav-items li:hover, .task-list button:hover {
+.nav-items li:hover, .task-list button:hover, .project-list button:hover {
     color: #4e73df;
     font-size: 16px;
     transform: translateX(3px);
@@ -127,19 +127,70 @@ body {
     color: #4e73df;
 }
 
-.project-list button {
-    margin-top: 10px;
-    padding: 8px 10px;
-    background: #4e73df;
-    color: white;
+.project-list button{
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s;
+    background: none;
 }
 
-.project-list button:hover {
+/* Project Form */
+.project-form {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 12px;
+    background: #f8f9fc;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.project-form input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    background: #fff;
+    color: #333;
+}
+
+.project-form input:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 2px rgba(78, 115, 223, 0.2);
+}
+
+.project-form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#cancelProjectBtn, #saveProjectBtn {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#cancelProjectBtn {
+    background: #666;
+    color: #fff;
+}
+
+#cancelProjectBtn:hover {
+    background: #555;
+}
+
+#saveProjectBtn {
+    background: #4e73df;
+    color: #fff;
+}
+
+#saveProjectBtn:hover {
     background: #3b5fd1;
 }
 
@@ -284,7 +335,7 @@ body {
     background: #516bdf;
 }
 
-.submitBtn:disabled {
+.submitBtn:disabled , #saveProjectBtn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;

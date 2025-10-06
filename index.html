@@ -30,7 +30,16 @@
             <div class="project-list">
                 <h3><i class="fa fa-folder"></i> My Projects</h3>
                 <ul></ul>
-                <button><i class="fa fa-plus"></i> New Project</button>
+                <button><i class="fa fa-plus-circle"></i> New Project</button>
+
+                <form id="projectForm" class="project-form">
+                    <input type="text" id="projectName" placeholder="Enter project name" required>
+                    <div class="project-form-buttons">
+                        <button type="button" id="cancelProjectBtn">Cancel</button>
+                        <button type="submit" id="saveProjectBtn" disabled>Save</button>
+                    </div>
+                </form>
+
             </div>
         </div>
 
@@ -71,4 +80,5 @@
     </div>
     <script src="app.js"></script>
 </body>
+
 </html>
