@@ -41,11 +41,12 @@ function createProjectManager() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const addTaskBtn = document.querySelector(".today-view button");
+    const addTaskBtns = document.querySelectorAll(".show-form-btn");
     const todayView = document.querySelector(".today-view");
     const taskForm = document.getElementById("taskForm");
     const cancelBtn = document.getElementById("cancelBtn");
     const taskListContainer = document.querySelector(".task-list ul");
+    const taskListBtn = document.querySelector(".task-list button");
     const submitBtn = document.querySelector(".submitBtn");
     const projectList = document.querySelector(".project-list ul");
     const addProjectBtn = document.querySelector(".project-list button");
@@ -78,6 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    //Function to handle form closing 
+    function closeForm(e){
+        taskForm.reset();
+        taskForm.style.display = "none";
+        taskListBtn.style.display = "flex";
+    }
+
     //Function to handle project switching
     function handleProjectSwitch(e) {
         if (e.target.tagName === "LI") {
@@ -90,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".project-item").forEach(item => item.classList.remove("active"));
             e.target.classList.add("active");
 
+            closeForm();
             renderTasks(selectedProject);
         }
     }
@@ -115,17 +124,17 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // Show form on "Add Task" click
-    addTaskBtn.addEventListener("click", () => {
-        todayView.style.display = "none";     // hide welcome view
-        document.querySelector(".task-list").style.display = "block"; // show task list section
-        taskForm.style.display = "block";     // keep form open
+    addTaskBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            todayView.style.display = "none";     // hide welcome view
+            document.querySelector(".task-list").style.display = "block"; // show task list section
+            taskListBtn.style.display = "none";
+            taskForm.style.display = "block";     // keep form open
+        });
     });
 
     // Hide form on "Cancel" click
-    cancelBtn.addEventListener("click", () => {
-        taskForm.reset();
-        taskForm.style.display = "none";
-    });
+    cancelBtn.addEventListener("click", closeForm);
 
     // Enable/disable submit button based on title input
     taskForm.addEventListener("input", () => {

@@ -58,7 +58,7 @@ body {
     list-style: none;
 }
 
-.nav-items li {
+.nav-items li, .task-list button {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -70,13 +70,13 @@ body {
     transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
-.nav-items li i {
+.nav-items li i, .task-list button i {
     font-size: 16px;
     color: #4e73df;
     transition: color 0.3s;
 }
 
-.nav-items li:hover {
+.nav-items li:hover, .task-list button:hover {
     color: #4e73df;
     font-size: 16px;
     transform: translateX(3px);
@@ -318,4 +318,10 @@ body {
 .task-list .task-item small {
     color: #777;
     font-size: 12px;
+}
+
+.task-list button{
+    display: none;
+    border: none;
+    background: none;
 }
