@@ -361,6 +361,24 @@ body {
     border-bottom: 1px solid #ddd;
     padding: 12px;
     margin-bottom: 10px;
+    position: relative;
+    padding-left: 14px;
+    border-left: 6px solid transparent;
+    border-radius: 6px;
+    background: #fff;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.task-item.high {
+    border-left-color: #e74c3c; 
+}
+
+.task-item.medium {
+    border-left-color: #f39c12; 
+}
+
+.task-item.low {
+    border-left-color: #f1c40f; 
 }
 
 .task-list .task-item strong {

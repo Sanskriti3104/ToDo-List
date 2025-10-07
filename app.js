@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!project) return;
         project.todos.forEach(todo => {
             const li = document.createElement("li");
-            li.classList.add("task-item");
+            li.classList.add("task-item", todo.priority);
             li.innerHTML = `
                 <strong>${todo.title}</strong>
                 <p>${todo.description}</p>
