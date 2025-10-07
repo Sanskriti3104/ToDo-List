@@ -19,6 +19,10 @@ body {
 
 /* Sidebar */
 .navigation-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
     width: 260px;
     background: #ffffff;
     border-right: 1px solid #e2e6ec;
@@ -200,6 +204,9 @@ body {
     padding: 40px;
     background: #f9fafc;
     position: relative;
+    overflow-y: auto; 
+    height: 100vh;   
+    margin-left: 260px; 
 }
 
 .main h2 {
