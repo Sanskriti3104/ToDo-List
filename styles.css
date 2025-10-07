@@ -414,6 +414,11 @@ body {
     color: #4e73df;
 }
 
+.task-item.completed .task-content {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
 .task-list li{
     display: flex;
     justify-content: space-between;

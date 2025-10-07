@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         project.todos.forEach(todo => {
             const li = document.createElement("li");
             li.classList.add("task-item", todo.priority);
+            if(todo.completed) li.classList.add("completed");
 
             li.innerHTML = `
             <div class="task-content">
@@ -87,6 +88,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 <i class='fa fa-trash' title="Delete Task"></i>
             </div>
             `;
+
+            //Functionality for task completion
+            li.querySelector(".fa-check").addEventListener("click",() => {
+                if(todo.completed) return;
+
+                todo.toggleComplete();
+                renderTasks(project);
+            })
+
             taskListContainer.appendChild(li);
         });
     }
