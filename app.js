@@ -74,10 +74,18 @@ document.addEventListener("DOMContentLoaded", () => {
         project.todos.forEach(todo => {
             const li = document.createElement("li");
             li.classList.add("task-item", todo.priority);
+
             li.innerHTML = `
+            <div class="task-content">
                 <strong>${todo.title}</strong>
                 <p>${todo.description}</p>
                 <small>Due: ${todo.dueDate || "No date"} | Priority: ${todo.priority}</small>
+            </div>
+            <div class="task-actions">
+                <i class='fa fa-check' title="Mark Complete"></i>
+                <i class='fa fa-edit' title="Edit Task"></i>
+                <i class='fa fa-trash' title="Delete Task"></i>
+            </div>
             `;
             taskListContainer.appendChild(li);
         });

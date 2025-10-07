@@ -353,11 +353,11 @@ body {
 }
 
 .task-list ul {
-    list-style: circle;
+    list-style: none;
     padding: 0;
 }
 
-.task-list .task-item {
+.task-item {
     border-bottom: 1px solid #ddd;
     padding: 12px;
     margin-bottom: 10px;
@@ -381,19 +381,43 @@ body {
     border-left-color: #f1c40f; 
 }
 
-.task-list .task-item strong {
+.task-item strong {
     font-size: 16px;
     color: #2f3640;
 }
 
-.task-list .task-item p {
+.task-item p {
     margin: 5px 0;
     color: #555;
 }
 
-.task-list .task-item small {
+.task-item small {
     color: #777;
     font-size: 12px;
+}
+
+.task-actions{
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.task-actions i {
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.task-actions i:hover {
+    color: #4e73df;
+}
+
+.task-list li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .task-list button{
