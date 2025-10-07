@@ -19,7 +19,7 @@ function createProject(title) {
         addTodo(todo) {
             this.todos.push(todo);
         },
-        remoeTodo(index) {
+        removeTodo(index) {
             this.todos.splice(index, 1);
         }
     };
@@ -94,6 +94,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 if(todo.completed) return;
 
                 todo.toggleComplete();
+                renderTasks(project);
+            })
+
+            //Functionality for deleting tasks
+            li.querySelector(".fa-trash").addEventListener("click", () =>{
+                const index = project.todos.indexOf(todo);
+
+                if(index === -1) return;
+                project.removeTodo(index);
                 renderTasks(project);
             })
 
