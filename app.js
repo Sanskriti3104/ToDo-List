@@ -117,6 +117,65 @@ document.addEventListener("DOMContentLoaded", () => {
         taskListBtn.style.display = "flex";
     }
 
+    // Show form on "Add Task" click
+    addTaskBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            todayView.style.display = "none";     // hide welcome view
+            document.querySelector(".task-list").style.display = "block"; // show task list section
+            taskListBtn.style.display = "none";
+            taskForm.style.display = "block";     // keep form open
+        });
+    });
+
+    // Hide form on "Cancel" click
+    cancelBtn.addEventListener("click", closeForm);
+
+    // Enable/disable submit button based on title input
+    taskForm.addEventListener("input", () => {
+        const title = taskForm.querySelector(".task-title").value.trim();
+        submitBtn.disabled = !title;
+    });
+
+    // Handle form submission
+    taskForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const title = taskForm.querySelector(".task-title").value.trim();
+        const description = taskForm.querySelector(".task-description").value.trim();
+        const dueDate = taskForm.querySelector(".task-date").value;
+        const priority = taskForm.querySelector(".task-priority").value;
+
+        if (!title) return;  // safeguard
+
+        // Create task item
+        const li = document.createElement("li");
+        li.classList.add("task-item");
+        li.innerHTML = `
+            <strong>${title}</strong> 
+            <p>${description}</p>
+            <small>Due: ${dueDate || "No date"} | Priority: ${priority}</small>
+        `;
+
+        // Add to task list
+        taskListContainer.appendChild(li);
+
+        // Find the currently active project
+        const activeProjectName = document.querySelector(".project-item.active").textContent;
+        const activeProject = projectManager.getProject(activeProjectName);
+
+        //Create a new todo object
+        const newTodo = createTodo(title, description, dueDate, priority);
+
+        //Add todo to the selected project
+        activeProject.addTodo(newTodo);
+
+        //Re-render the updated task list
+        renderTasks(activeProject);
+        // Clear only inputs, keep form visible for next task
+        taskForm.reset();
+        submitBtn.disabled = true;
+    });
+
     //Function to handle project switching
     function handleProjectSwitch(e) {
         if (e.target.tagName === "LI") {
@@ -179,63 +238,4 @@ document.addEventListener("DOMContentLoaded", () => {
         // Switch to the new project
         handleProjectSwitch({ target: li });
     })
-
-    // Show form on "Add Task" click
-    addTaskBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            todayView.style.display = "none";     // hide welcome view
-            document.querySelector(".task-list").style.display = "block"; // show task list section
-            taskListBtn.style.display = "none";
-            taskForm.style.display = "block";     // keep form open
-        });
-    });
-
-    // Hide form on "Cancel" click
-    cancelBtn.addEventListener("click", closeForm);
-
-    // Enable/disable submit button based on title input
-    taskForm.addEventListener("input", () => {
-        const title = taskForm.querySelector(".task-title").value.trim();
-        submitBtn.disabled = !title;
-    });
-
-    // Handle form submission
-    taskForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const title = taskForm.querySelector(".task-title").value.trim();
-        const description = taskForm.querySelector(".task-description").value.trim();
-        const dueDate = taskForm.querySelector(".task-date").value;
-        const priority = taskForm.querySelector(".task-priority").value;
-
-        if (!title) return;  // safeguard
-
-        // Create task item
-        const li = document.createElement("li");
-        li.classList.add("task-item");
-        li.innerHTML = `
-            <strong>${title}</strong> 
-            <p>${description}</p>
-            <small>Due: ${dueDate || "No date"} | Priority: ${priority}</small>
-        `;
-
-        // Add to task list
-        taskListContainer.appendChild(li);
-
-        // Find the currently active project
-        const activeProjectName = document.querySelector(".project-item.active").textContent;
-        const activeProject = projectManager.getProject(activeProjectName);
-
-        //Create a new todo object
-        const newTodo = createTodo(title, description, dueDate, priority);
-
-        //Add todo to the selected project
-        activeProject.addTodo(newTodo);
-
-        //Re-render the updated task list
-        renderTasks(activeProject);
-        // Clear only inputs, keep form visible for next task
-        taskForm.reset();
-        submitBtn.disabled = true;
-    });
 });
