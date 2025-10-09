@@ -67,6 +67,16 @@ document.addEventListener("DOMContentLoaded", () => {
     todayLi.classList.add("project-item", "active");
     projectList.appendChild(todayLi);
 
+    // Show form on "Add Task" click
+    addTaskBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            todayView.style.display = "none";     // hide welcome view
+            document.querySelector(".task-list").style.display = "block"; // show task list section
+            taskListBtn.style.display = "none";
+            taskForm.style.display = "block";     // keep form open
+        });
+    });
+
     //Function to render tasks for selected project
     function renderTasks(project) {
         taskListContainer.innerHTML = "";  // Clear existing tasks
@@ -117,16 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         taskListBtn.style.display = "flex";
     }
 
-    // Show form on "Add Task" click
-    addTaskBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            todayView.style.display = "none";     // hide welcome view
-            document.querySelector(".task-list").style.display = "block"; // show task list section
-            taskListBtn.style.display = "none";
-            taskForm.style.display = "block";     // keep form open
-        });
-    });
-
     // Hide form on "Cancel" click
     cancelBtn.addEventListener("click", closeForm);
 
@@ -146,18 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const priority = taskForm.querySelector(".task-priority").value;
 
         if (!title) return;  // safeguard
-
-        // Create task item
-        const li = document.createElement("li");
-        li.classList.add("task-item");
-        li.innerHTML = `
-            <strong>${title}</strong> 
-            <p>${description}</p>
-            <small>Due: ${dueDate || "No date"} | Priority: ${priority}</small>
-        `;
-
-        // Add to task list
-        taskListContainer.appendChild(li);
 
         // Find the currently active project
         const activeProjectName = document.querySelector(".project-item.active").textContent;
