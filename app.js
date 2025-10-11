@@ -4,7 +4,7 @@ function createTodo(title, description, dueDate, priority) {
         description,
         dueDate,
         priority,
-        completed: false,   //default
+        completed: false, //default
         toggleComplete() {
             this.completed = !this.completed;
         }
@@ -56,35 +56,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveProjectBtn = document.querySelector("#saveProjectBtn");
     const heading = document.querySelector(".main h2");
 
-    // Create project manager and default "today" project
+    // Create project manager and default "Today" project
     const projectManager = createProjectManager();
-    const todayProject = createProject("Today");
-    projectManager.addProject(todayProject);
 
-    //Display "Today" project in sidebar
-    const todayLi = document.createElement("li");
-    todayLi.textContent = todayProject.title;
-    todayLi.classList.add("project-item", "active");
-    projectList.appendChild(todayLi);
+    // Check if "Today" exists before creating it 
+    let todayProject = projectManager.getProject("Today");
+    if (!todayProject) {
+        todayProject = createProject("Today");
+        projectManager.addProject(todayProject);
+    }
 
-    // Show form on "Add Task" click
-    addTaskBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            todayView.style.display = "none";     // hide welcome view
-            document.querySelector(".task-list").style.display = "block"; // show task list section
-            taskListBtn.style.display = "none";
-            taskForm.style.display = "block";     // keep form open
-        });
-    });
+    // Track the currently active project
+    let activeProject = todayProject;
+
+    //Function to handle form closing 
+    function closeForm() {
+        taskForm.reset();
+        taskForm.style.display = "none";
+        taskListBtn.style.display = "flex";
+    }
 
     //Function to render tasks for selected project
     function renderTasks(project) {
         taskListContainer.innerHTML = "";  // Clear existing tasks
         if (!project) return;
-        project.todos.forEach(todo => {
+
+        project.todos.forEach((todo, todoIndex) => {
             const li = document.createElement("li");
             li.classList.add("task-item", todo.priority);
-            if(todo.completed) li.classList.add("completed");
+            if (todo.completed) li.classList.add("completed");
 
             li.innerHTML = `
             <div class="task-content">
@@ -100,19 +100,14 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             //Functionality for task completion
-            li.querySelector(".fa-check").addEventListener("click",() => {
-                if(todo.completed) return;
-
+            li.querySelector(".fa-check").addEventListener("click", () => {
                 todo.toggleComplete();
                 renderTasks(project);
             })
 
             //Functionality for deleting tasks
-            li.querySelector(".fa-trash").addEventListener("click", () =>{
-                const index = project.todos.indexOf(todo);
-
-                if(index === -1) return;
-                project.removeTodo(index);
+            li.querySelector(".fa-trash").addEventListener("click", () => {
+                project.removeTodo(todoIndex);
                 renderTasks(project);
             })
 
@@ -120,12 +115,73 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    //Function to handle form closing 
-    function closeForm(e) {
-        taskForm.reset();
-        taskForm.style.display = "none";
-        taskListBtn.style.display = "flex";
+    // Function to handle project switching logic
+    function switchProject(projectName) {
+        const selectedProject = projectManager.getProject(projectName);
+        if (!selectedProject) return;
+
+        // Update heading
+        heading.textContent = selectedProject.title;
+        activeProject = selectedProject;
+
+        // Update active class in sidebar
+        document.querySelectorAll(".project-item").forEach(item => item.classList.remove("active"));
+        const newActiveItem = Array.from(projectList.children).find(item => item.dataset.title === projectName);
+        if (newActiveItem) {
+            newActiveItem.classList.add("active");
+        }
+
+        closeForm(); // Close the task form when switching projectsd
+        renderTasks(selectedProject);
     }
+
+    //Function to handle project switching (event listener delegate)
+    function handleProjectSwitch(e) {
+        const li = e.target.closest('.project-item');
+        if (!li) return; // Click wasn't on a project item      
+
+        // Handle regular project switch (click on the li/span)
+        switchProject(li.dataset.title);
+    }
+
+    //Function to render projects
+    function renderProjects() {
+        projectList.innerHTML = "";  // Clear existing projects
+
+        projectManager.projects.forEach(project => {
+            const li = document.createElement("li");
+            li.classList.add("project-item");
+            li.dataset.title = project.title; // Use data attribute for title
+
+            // Set active class if it's the current active project
+            if (project.title === activeProject.title) {
+                li.classList.add("active");
+            }
+
+            li.innerHTML = `
+            <span>${project.title}</span>
+            `;
+
+            projectList.appendChild(li);
+        });
+    }
+
+
+    // --- EVENT LISTENERS ---
+
+    // Show form on "Add Task" click
+    addTaskBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            todayView.style.display = "none";     // hide welcome view
+            document.querySelector(".task-list").style.display = "block"; // show task list section
+            taskListBtn.style.display = "none";
+            taskForm.style.display = "block";     // show form
+
+            // Ensure the submit button is correctly disabled/enabled based on current input
+            const title = taskForm.querySelector(".task-title").value.trim();
+            submitBtn.disabled = !title;
+        });
+    });
 
     // Hide form on "Cancel" click
     cancelBtn.addEventListener("click", closeForm);
@@ -136,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.disabled = !title;
     });
 
-    // Handle form submission
+    // Handle task form submission
     taskForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -145,50 +201,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const dueDate = taskForm.querySelector(".task-date").value;
         const priority = taskForm.querySelector(".task-priority").value;
 
-        if (!title) return;  // safeguard
+        if (!title) return; // safeguard
 
-        // Find the currently active project
-        const activeProjectName = document.querySelector(".project-item.active").textContent;
-        const activeProject = projectManager.getProject(activeProjectName);
-
-        //Create a new todo object
+        // Use the currently active project
         const newTodo = createTodo(title, description, dueDate, priority);
-
-        //Add todo to the selected project
         activeProject.addTodo(newTodo);
 
-        //Re-render the updated task list
         renderTasks(activeProject);
-        // Clear only inputs, keep form visible for next task
+
+        // Clear inputs and disable button, but keep form open
         taskForm.reset();
         submitBtn.disabled = true;
     });
 
-    //Function to handle project switching
-    function handleProjectSwitch(e) {
-        if (e.target.tagName === "LI") {
-            const selectedTitle = e.target.textContent;
-            const selectedProject = projectManager.getProject(selectedTitle);
-
-            //Update heading
-            heading.textContent = selectedTitle;
-
-            document.querySelectorAll(".project-item").forEach(item => item.classList.remove("active"));
-            e.target.classList.add("active");
-
-            closeForm();
-            renderTasks(selectedProject);
-        }
-    }
-
-    //Handle project switching
+    //Handle project switching/deletion
     projectList.addEventListener("click", handleProjectSwitch);
 
-    //Function to add new Project
+    //Function to open project creation form
     addProjectBtn.addEventListener("click", () => {
         addProjectBtn.style.display = "none";
         projectForm.style.display = "flex";
         projectNameInput.focus();
+        saveProjectBtn.disabled = true; // Disable on opening
     });
 
     //Function to cancel project creation
@@ -201,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //Cancel project creation
     cancelProjectBtn.addEventListener("click", cancelProjectCreation);
 
-    // Enable/disable submit button based on project title input
+    // Enable/disable save button based on project title input
     projectForm.addEventListener("input", () => {
         const title = projectNameInput.value.trim();
         saveProjectBtn.disabled = !title;
@@ -217,13 +251,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const newProject = createProject(projectName);
         projectManager.addProject(newProject);
 
-        const li = document.createElement("li");
-        li.textContent = newProject.title;
-        li.classList.add("project-item");
-        projectList.appendChild(li);
+        // Re-render all projects (and automatically switch to the new one)
+        renderProjects();
+        switchProject(projectName);
 
         cancelProjectCreation();
-        // Switch to the new project
-        handleProjectSwitch({ target: li });
     })
+
+    // Render initial project list and tasks
+    renderProjects();
+    switchProject("Today"); // Ensure "Today" is active and its tasks are shown
 });
