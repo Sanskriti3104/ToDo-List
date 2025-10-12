@@ -140,6 +140,31 @@ document.addEventListener("DOMContentLoaded", () => {
         const li = e.target.closest('.project-item');
         if (!li) return; // Click wasn't on a project item      
 
+        // Handle project deletion
+        if (e.target.classList.contains('fa-trash')) {
+            const projectTitle = li.dataset.title;
+            const projectIndex = projectManager.projects.findIndex(project => project.title === projectTitle);
+
+            if (projectIndex !== -1) {
+                projectManager.removeProject(projectIndex);
+                renderProjects();
+
+                //If deleted project was active
+                if (activeProject.title === projectTitle) {
+                    if (projectManager.projects.includes("Today")) {
+                        switchProject("Today");
+                    } else if (projectManager.projects.length === 0) {
+                        taskListContainer.innerHTML = "";
+                        taskListBtn.style.display = "none";
+                        heading.textContent = "Today";
+                        todayView.style.display = "flex";
+                    } else {
+                        switchProject(projectManager.projects[0].title);
+                    }
+                }
+            }
+            return;
+        }
         // Handle regular project switch (click on the li/span)
         switchProject(li.dataset.title);
     }
@@ -160,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             li.innerHTML = `
             <span>${project.title}</span>
+            <i class='fa fa-trash' title="Delete Project"></i>
             `;
 
             projectList.appendChild(li);
@@ -254,6 +280,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Re-render all projects (and automatically switch to the new one)
         renderProjects();
         switchProject(projectName);
+
+        todayView.style.display = "none";      
+        taskListBtn.style.display = "flex";    
+        heading.textContent = projectName;     
 
         cancelProjectCreation();
     })
