@@ -73,12 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function closeForm() {
         taskForm.reset();
         taskForm.style.display = "none";
-        taskListBtn.style.display = "flex";
     }
 
     //Function to render tasks for selected project
     function renderTasks(project) {
-        taskListContainer.innerHTML = "";  // Clear existing tasks
+        taskListContainer.innerHTML = ""; // Clear existing tasks
         if (!project) return;
 
         project.todos.forEach((todo, todoIndex) => {
@@ -131,14 +130,25 @@ document.addEventListener("DOMContentLoaded", () => {
             newActiveItem.classList.add("active");
         }
 
-        closeForm(); // Close the task form when switching projectsd
+        closeForm(); // Close the task form when switching projects
+
+        if (projectName === "Today" && todayProject.todos.length === 0) {
+            todayView.style.display = "flex";
+            taskListBtn.style.display = "none"; 
+            document.querySelector(".task-list").style.display = "none";
+        } else {
+            todayView.style.display = "none";
+            document.querySelector(".task-list").style.display = "block"; 
+            taskListBtn.style.display = "flex"; 
+        }
+        
         renderTasks(selectedProject);
     }
 
-    //Function to handle project switching (event listener delegate)
+    // Function to handle project switching (event listener delegate)
     function handleProjectSwitch(e) {
         const li = e.target.closest('.project-item');
-        if (!li) return; // Click wasn't on a project item      
+        if (!li) return; // Click wasn't on a project item      
 
         // Handle project deletion
         if (e.target.classList.contains('fa-trash')) {
@@ -151,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 //If deleted project was active
                 if (activeProject.title === projectTitle) {
-                    if (projectManager.projects.includes("Today")) {
+                    if (projectManager.getProject("Today")) {
                         switchProject("Today");
                     } else if (projectManager.projects.length === 0) {
                         taskListContainer.innerHTML = "";
@@ -192,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
     // --- EVENT LISTENERS ---
 
     // Show form on "Add Task" click
@@ -210,7 +219,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Hide form on "Cancel" click
-    cancelBtn.addEventListener("click", closeForm);
+    cancelBtn.addEventListener("click", () => {
+        closeForm();
+        switchProject(activeProject.title); 
+    });
 
     // Enable/disable submit button based on title input
     taskForm.addEventListener("input", () => {
@@ -277,13 +289,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const newProject = createProject(projectName);
         projectManager.addProject(newProject);
 
-        // Re-render all projects (and automatically switch to the new one)
+        // Re-render all projects, switch to the new one, and update the view
+        activeProject = newProject;
         renderProjects();
         switchProject(projectName);
-
-        todayView.style.display = "none";      
-        taskListBtn.style.display = "flex";    
-        heading.textContent = projectName;     
 
         cancelProjectCreation();
     })
