@@ -1,21 +1,20 @@
-function createTodo(title, description, dueDate, priority) {
+export function createTodo(title, description, dueDate, priority) {
     return {
         title,
         description,
         dueDate,
         priority,
-        completed: false, //default
+        completed: false,
         toggleComplete() {
             this.completed = !this.completed;
         }
     };
 }
 
-function createProject(title) {
+export function createProject(title) {
     return {
-        title: title,
+        title,
         todos: [],
-
         addTodo(todo) {
             this.todos.push(todo);
         },
@@ -25,7 +24,7 @@ function createProject(title) {
     };
 }
 
-function createProjectManager() {
+export function createProjectManager() {
     return {
         projects: [],
         addProject(project) {

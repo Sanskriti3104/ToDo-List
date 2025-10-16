@@ -78,7 +78,7 @@ export function app() {
                 taskListBtn.style.display = "flex";
             }
 
-            renderTasks(selectedProject);
+            renderTasks(selectedProject, taskListContainer);
         }
 
         // Function to handle project switching (event listener delegate)
@@ -93,7 +93,7 @@ export function app() {
 
                 if (projectIndex !== -1) {
                     projectManager.removeProject(projectIndex);
-                    renderProjects();
+                    renderProjects(projectManager, projectList, activeProject);
 
                     //If deleted project was active
                     if (activeProject.title === projectTitle) {
@@ -158,7 +158,7 @@ export function app() {
             const newTodo = createTodo(title, description, dueDate, priority);
             activeProject.addTodo(newTodo);
 
-            renderTasks(activeProject);
+            renderTasks(activeProject, taskListContainer);
 
             // Clear inputs and disable button, but keep form open
             taskForm.reset();
@@ -192,12 +192,19 @@ export function app() {
             const projectName = projectNameInput.value.trim();
             if (!projectName) return;
 
+            // Check if project name already exists
+            const existingProject = projectManager.getProject(projectName);
+            if (existingProject) {
+                alert("A project with this name already exists!");
+                return;
+            }
+
             const newProject = createProject(projectName);
             projectManager.addProject(newProject);
 
             // Re-render all projects, switch to the new one, and update the view
             activeProject = newProject;
-            renderProjects();
+            renderProjects(projectManager, projectList, activeProject);
             switchProject(projectName);
 
             cancelProjectCreation();
@@ -206,7 +213,7 @@ export function app() {
         // --- Initialization ---
 
         // Render initial project list and tasks
-        renderProjects();
+        renderProjects(projectManager, projectList, activeProject);
         switchProject("Today"); // Ensure "Today" is active and its tasks are shown
     });
 } 
