@@ -1,4 +1,4 @@
 import "./styles.css";
-import { app } from "./app.js";
+import { app } from "./eventHandler.js";
 
 app();
