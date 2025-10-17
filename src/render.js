@@ -37,6 +37,8 @@ export function renderProjects(projectManager, projectList, activeProject) {
     projectList.innerHTML = "";
 
     projectManager.projects.forEach(project => {
+        if(project.title === "Inbox") return;
+        
         const li = document.createElement("li");
         li.classList.add("project-item");
         li.dataset.title = project.title;

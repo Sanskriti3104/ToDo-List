@@ -19,6 +19,7 @@ export function app() {
         const cancelProjectBtn = document.querySelector("#cancelProjectBtn");
         const saveProjectBtn = document.querySelector("#saveProjectBtn");
         const heading = document.querySelector(".main h2");
+        const inbox = document.querySelector(".inbox");
 
         // Create project manager and default "Today" project
         const projectManager = createProjectManager();
@@ -28,6 +29,13 @@ export function app() {
         if (!todayProject) {
             todayProject = createProject("Today");
             projectManager.addProject(todayProject);
+        }
+
+        //Check if "Inbox" exists before creating it
+        let inboxProject = projectManager.getProject("Inbox");
+        if (!inboxProject) {
+            inboxProject = createProject("Inbox");
+            projectManager.addProject(inboxProject);
         }
 
         // Track the currently active project
@@ -99,11 +107,8 @@ export function app() {
                     if (activeProject.title === projectTitle) {
                         if (projectManager.getProject("Today")) {
                             switchProject("Today");
-                        } else if (projectManager.projects.length === 0) {
-                            taskListContainer.innerHTML = "";
-                            taskListBtn.style.display = "none";
-                            heading.textContent = "Today";
-                            todayView.style.display = "flex";
+                        } else if (projectManager.projects.length === 1 && projectManager.getProject("Inbox")) {
+                           switchProject("Inbox");
                         } else {
                             switchProject(projectManager.projects[0].title);
                         }
@@ -209,6 +214,12 @@ export function app() {
 
             cancelProjectCreation();
         })
+
+        // -- Nav items --
+
+        inbox.addEventListener("click", () => {
+            switchProject("Inbox");
+        });
 
         // --- Initialization ---
 
