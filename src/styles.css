@@ -62,7 +62,9 @@ body {
     list-style: none;
 }
 
-.nav-items li, .task-list button, .project-list > button {
+.nav-items li,
+.task-list button,
+.project-list>button {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -74,13 +76,17 @@ body {
     transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
-.nav-items li i, .task-list button i, .project-list button i {
+.nav-items li i,
+.task-list button i,
+.project-list button i {
     font-size: 16px;
     color: #4e73df;
     transition: color 0.3s;
 }
 
-.nav-items li:hover, .task-list button:hover, .project-list button:hover {
+.nav-items li:hover,
+.task-list button:hover,
+.project-list button:hover {
     color: #4e73df;
     font-size: 16px;
     transform: translateX(3px);
@@ -131,7 +137,7 @@ body {
     color: #4e73df;
 }
 
-.project-list button{
+.project-list button {
     border: none;
     background: none;
 }
@@ -170,7 +176,8 @@ body {
     gap: 10px;
 }
 
-#cancelProjectBtn, #saveProjectBtn {
+#cancelProjectBtn,
+#saveProjectBtn {
     flex: 1;
     padding: 8px 0;
     border: none;
@@ -204,9 +211,9 @@ body {
     padding: 40px;
     background: #f9fafc;
     position: relative;
-    overflow-y: auto; 
-    height: 100vh;   
-    margin-left: 260px; 
+    overflow-y: auto;
+    height: 100vh;
+    margin-left: 260px;
 }
 
 .main h2 {
@@ -342,19 +349,27 @@ body {
     background: #516bdf;
 }
 
-.submitBtn:disabled , #saveProjectBtn:disabled {
+.submitBtn:disabled,
+#saveProjectBtn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
 }
 
-.task-list{
+/* --- Task list style --- */
+.task-list {
     display: none;
 }
 
 .task-list ul {
     list-style: none;
     padding: 0;
+}
+
+.task-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .task-item {
@@ -370,15 +385,15 @@ body {
 }
 
 .task-item.high {
-    border-left-color: #e74c3c; 
+    border-left-color: #e74c3c;
 }
 
 .task-item.medium {
-    border-left-color: #f39c12; 
+    border-left-color: #f39c12;
 }
 
 .task-item.low {
-    border-left-color: #f1c40f; 
+    border-left-color: #f1c40f;
 }
 
 .task-item strong {
@@ -392,11 +407,51 @@ body {
 }
 
 .task-item small {
-    color: #777;
-    font-size: 12px;
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 13px;
+    padding: 4px 8px;
 }
 
-.task-actions{
+/* Due Text Style */
+.due-text {
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+.task-item.due-today .due-text {
+    color: #27ae60;
+}
+
+.task-item.due-tomorrow .due-text,
+.task-item.due-future .due-text {
+    color: #2980b9;
+}
+
+.task-item.overdue .due-text {
+    color: #e74c3c;
+}
+
+/* --- PRIORITY TEXT COLORS & STYLE --- */
+.priority-text {
+    font-weight: 600;
+    margin-left: 4px;
+    text-transform: capitalize;
+}
+
+.priority-text.high {
+    color: #e74c3c;
+}
+
+.priority-text.medium {
+    color: #f39c12;
+}
+
+.priority-text.low {
+    color: #f1c40f;
+}
+
+.task-actions {
     top: 10px;
     right: 10px;
     display: flex;
@@ -419,13 +474,7 @@ body {
     text-decoration: line-through;
 }
 
-.task-list li{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.task-list button{
+.task-list button {
     display: none;
     border: none;
     background: none;
