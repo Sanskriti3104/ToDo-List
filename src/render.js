@@ -1,3 +1,5 @@
+import { format, isToday, isTomorrow, isPast, parseISO } from 'date-fns';
+
 export function renderTasks(project, taskListContainer) {
     taskListContainer.innerHTML = "";
     if (!project) return;
@@ -7,11 +9,27 @@ export function renderTasks(project, taskListContainer) {
         li.classList.add("task-item", todo.priority);
         if (todo.completed) li.classList.add("completed");
 
+        let dueLabel = "No date";
+
+        if (todo.dueDate) {
+            const due = parseISO(todo.dueDate); // parse string (like "2025-10-18") into Date
+
+            if (isToday(due)) {
+                dueLabel = "Today";
+            } else if (isTomorrow(due)) {
+                dueLabel = "Tomorrow";
+            } else if (isPast(due) && !isToday(due)) {
+                dueLabel = `Overdue (${format(due, "dd MMM yyyy")})`;
+            } else {
+                dueLabel = format(due, "dd MMM yyyy");
+            }
+        }
+
         li.innerHTML = `
             <div class="task-content">
                 <strong>${todo.title}</strong>
                 <p>${todo.description}</p>
-                <small>Due: ${todo.dueDate || "No date"} | Priority: ${todo.priority}</small>
+                <small>Due: ${dueLabel} | Priority: ${todo.priority}</small>
             </div>
             <div class="task-actions">
                 <i class='fa fa-check' title="Mark Complete"></i>
