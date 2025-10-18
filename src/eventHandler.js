@@ -1,6 +1,6 @@
 import { createTodo, createProject, createProjectManager } from "./model";
 import { renderTasks, renderProjects } from "./render";
-import { getTodayTasks, getUpcomingTasks, getPriorityTasks } from "./navItems";
+import { getTodayTasks, getUpcomingTasks, getPriorityTasks, getOverDueTasks } from "./navItems";
 
 // Main application function, exported to be called from index.js
 export function app() {
@@ -21,8 +21,8 @@ export function app() {
         const cancelProjectBtn = document.querySelector("#cancelProjectBtn");
         const saveProjectBtn = document.querySelector("#saveProjectBtn");
         const heading = document.querySelector(".main h2");
-        const filters = document.querySelectorAll(".filter");
         const inbox = document.querySelector(".inbox");
+        const overDue = document.querySelector(".overdue");
         const today = document.querySelector(".today");
         const upcoming = document.querySelector(".upcoming");
         const priority = document.querySelector(".priority");
@@ -285,6 +285,10 @@ export function app() {
 
         priority.addEventListener("click", () => {
             handleNavClicks(getPriorityTasks, "Priority");
+        });
+
+        overDue.addEventListener("click", () => {
+            handleNavClicks(getOverDueTasks, "OverDue");
         });
 
         // --- Initialization ---

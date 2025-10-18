@@ -1,5 +1,24 @@
 import { parseISO, isToday, isPast } from "date-fns";
 
+export function getOverDueTasks(projectManager) {
+    const allOverDueTasks = [];
+
+    projectManager.projects.forEach(project => {
+
+        project.todos.forEach(todo => {
+            if (todo.dueDate) {
+                const due = parseISO(todo.dueDate);
+                if (isPast(due)) {
+                    // Clone todo but include info about which project it belongs to
+                    allOverDueTasks.push({ ...todo, projectTitle: project.title });
+                }
+            }
+        });
+    });
+
+    return allOverDueTasks;
+}
+
 export function getTodayTasks(projectManager) {
     const allTodayTasks = [];
 
