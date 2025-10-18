@@ -1,6 +1,6 @@
 import { createTodo, createProject, createProjectManager } from "./model";
 import { renderTasks, renderProjects } from "./render";
-import { getTodayTasks, getUpcomingTasks } from "./navItems";
+import { getTodayTasks, getUpcomingTasks, getPriorityTasks } from "./navItems";
 
 // Main application function, exported to be called from index.js
 export function app() {
@@ -24,6 +24,7 @@ export function app() {
         const inbox = document.querySelector(".inbox");
         const today = document.querySelector(".today");
         const upcoming = document.querySelector(".upcoming");
+        const priority = document.querySelector(".priority");
 
         // Create project manager and default "Today" project
         const projectManager = createProjectManager();
@@ -226,6 +227,8 @@ export function app() {
             todayView.style.display = "none";
             taskList.style.display = "block";
             taskListBtn.style.display = "none";
+            closeForm();
+            document.querySelectorAll(".project-item").forEach(item => item.classList.remove("active"));
         }
 
         function createItems(todo) {
@@ -295,6 +298,27 @@ export function app() {
                 createItems(todo);
             });
         })
+
+        priority.addEventListener("click", () => {
+            heading.textContent = "Priority";
+
+            const priorityTasks = getPriorityTasks(projectManager);
+
+            hideWelcomeView();
+
+            // Clear old list
+            taskListContainer.innerHTML = "";
+
+            if (priorityTasks.length === 0) {
+                taskListContainer.innerHTML = `<p class="no-tasks">No tasks available</p>`;
+                return;
+            }
+
+            // Render all tasks together, sorted by priority + date
+            priorityTasks.forEach(todo => {
+                createItems(todo);
+            });
+        });
 
         // --- Initialization ---
 

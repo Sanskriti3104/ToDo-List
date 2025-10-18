@@ -489,3 +489,79 @@ body {
   color: #58a6ff;
   font-weight: 500;
 }
+
+.priority-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.priority-section {
+  margin-bottom: 1.5rem;
+}
+
+.priority-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  width: fit-content;
+  font-weight: 600;
+}
+
+.priority-title.high {
+  background-color: #ff4d4f;
+  color: #fff;
+}
+
+.priority-title.medium {
+  background-color: #ffa940;
+  color: #fff;
+}
+
+.priority-title.low {
+  background-color: #52c41a;
+  color: #fff;
+}
+
+.priority-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.priority-task {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1f1f1f;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  transition: transform 0.2s ease;
+}
+
+.priority-task:hover {
+  transform: scale(1.02);
+}
+
+.priority-task.high {
+  border-left: 4px solid #ff4d4f;
+}
+
+.priority-task.medium {
+  border-left: 4px solid #ffa940;
+}
+
+.priority-task.low {
+  border-left: 4px solid #52c41a;
+}
+
+.task-title {
+  color: #fff;
+  font-weight: 500;
+}
+
+.task-project {
+  color: #aaa;
+  font-size: 0.9rem;
+}
