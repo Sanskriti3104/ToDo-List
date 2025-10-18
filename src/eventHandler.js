@@ -21,6 +21,7 @@ export function app() {
         const cancelProjectBtn = document.querySelector("#cancelProjectBtn");
         const saveProjectBtn = document.querySelector("#saveProjectBtn");
         const heading = document.querySelector(".main h2");
+        const filters = document.querySelectorAll(".filter");
         const inbox = document.querySelector(".inbox");
         const today = document.querySelector(".today");
         const upcoming = document.querySelector(".upcoming");
@@ -251,6 +252,23 @@ export function app() {
             taskListContainer.appendChild(li);
         }
 
+        function handleNavClicks(fetchTashFn, headingText) {
+            heading.textContent = headingText;
+            
+            const tasks = fetchTashFn(projectManager);
+            
+            hideWelcomeView();
+           
+            taskListContainer.innerHTML = "";
+
+            if (!tasks || tasks.length === 0) {
+                taskListContainer.innerHTML = `<p class="no-tasks">No tasks available</p>`;
+                return;
+            }
+
+            // Render tasks
+            tasks.forEach(todo => createItems(todo));
+        }
         // -- Nav items --
 
         inbox.addEventListener("click", () => {
@@ -258,66 +276,15 @@ export function app() {
         });
 
         today.addEventListener("click", () => {
-            heading.textContent = "Today";
-
-            const todayTasks = getTodayTasks(projectManager);
-
-            hideWelcomeView();
-
-            // Clear old list
-            taskListContainer.innerHTML = "";
-
-            // Render today's tasks
-            if (todayTasks.length === 0) {
-                taskListContainer.innerHTML = `<p class="no-tasks">No tasks due today </p>`;
-                return;
-            }
-
-            todayTasks.forEach(todo => {
-                createItems(todo);
-            });
+            handleNavClicks(getTodayTasks, "Today");
         })
 
         upcoming.addEventListener("click", () => {
-            heading.textContent = "Upcoming";
-
-            const upcomingTasks = getUpcomingTasks(projectManager);
-
-            hideWelcomeView();
-
-            // Clear old list
-            taskListContainer.innerHTML = "";
-
-            // Render upcoming's tasks
-            if (upcomingTasks.length === 0) {
-                taskListContainer.innerHTML = `<p class="no-tasks">No tasks due upcoming </p>`;
-                return;
-            }
-
-            upcomingTasks.forEach(todo => {
-                createItems(todo);
-            });
+            handleNavClicks(getUpcomingTasks, "Upcoming");
         })
 
         priority.addEventListener("click", () => {
-            heading.textContent = "Priority";
-
-            const priorityTasks = getPriorityTasks(projectManager);
-
-            hideWelcomeView();
-
-            // Clear old list
-            taskListContainer.innerHTML = "";
-
-            if (priorityTasks.length === 0) {
-                taskListContainer.innerHTML = `<p class="no-tasks">No tasks available</p>`;
-                return;
-            }
-
-            // Render all tasks together, sorted by priority + date
-            priorityTasks.forEach(todo => {
-                createItems(todo);
-            });
+            handleNavClicks(getPriorityTasks, "Priority");
         });
 
         // --- Initialization ---
