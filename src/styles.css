@@ -479,3 +479,13 @@ body {
     border: none;
     background: none;
 }
+
+.no-tasks {
+  text-align: center;
+  color: #aaa;
+  margin-top: 1rem;
+}
+.project-ref {
+  color: #58a6ff;
+  font-weight: 500;
+}

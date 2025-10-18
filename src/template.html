@@ -21,8 +21,8 @@
             <div class="nav-items">
                 <ul>
                     <li class="inbox"><i class="fa fa-inbox"></i> Inbox</li>
-                    <li><i class="fa fa-calendar-day"></i> Today</li>
-                    <li><i class="fa fa-calendar-week"></i> Upcoming</li>
+                    <li class="today"><i class="fa fa-calendar-day"></i> Today</li>
+                    <li class="upcoming"><i class="fa fa-calendar-week"></i> Upcoming</li>
                     <li><i class="fa fa-flag"></i> Priority</li>
                 </ul>
             </div>
@@ -51,32 +51,32 @@
                 <button class="show-form-btn"><i class="fa fa-plus add-task"></i> Add Task</button>
             </div>
             <div>
-                <div class="task-list">
-                    <ul></ul>
-                    <button class="show-form-btn"><i class="fa fa-plus-circle"></i> Add Tasks</button>
-                </div>
-                <form id="taskForm" action="submit">
-                    <div class="task-content">
-                        <input type="text" placeholder="Task Title" name="title" class="task-title"><br>
-                        <input type="text" placeholder="Task Description" name="description"
-                            class="task-description"><br>
-                    </div>
-                    <div class="task-info">
-                        <input type="date" name="due-date" class="task-date">
-                        <select name="priority" class="task-priority">
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
-                        </select>
-                    </div>
-                    <div class="form-buttons">
-                        <button type="button" id="cancelBtn">Cancel</button>
-                        <button id="showFormBtn" class="submitBtn" disabled><i class="fa fa-plus"></i> Add Task</button>
-                    </div>
+
+            <div class="task-list">
+                <ul></ul>
+                <button class="show-form-btn"><i class="fa fa-plus-circle"></i> Add Tasks</button>
             </div>
+
+            <form id="taskForm" action="submit">
+                <div class="task-content">
+                    <input type="text" placeholder="Task Title" name="title" class="task-title"><br>
+                    <input type="text" placeholder="Task Description" name="description"
+                            class="task-description"><br>
+                </div>
+                <div class="task-info">
+                    <input type="date" name="due-date" class="task-date">
+                    <select name="priority" class="task-priority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" id="cancelBtn">Cancel</button>
+                    <button id="showFormBtn" class="submitBtn" disabled><i class="fa fa-plus"></i> Add Task</button>
+                </div>
             </form>
         </div>
-    </div>
     </div>
 </body>
 

@@ -1,5 +1,6 @@
 import { createTodo, createProject, createProjectManager } from "./model";
 import { renderTasks, renderProjects } from "./render";
+import { getTodayTasks, getUpcomingTasks } from "./navItems";
 
 // Main application function, exported to be called from index.js
 export function app() {
@@ -11,6 +12,7 @@ export function app() {
         const cancelBtn = document.getElementById("cancelBtn");
         const taskListContainer = document.querySelector(".task-list ul");
         const taskListBtn = document.querySelector(".task-list button");
+        const taskList = document.querySelector(".task-list");
         const submitBtn = document.querySelector(".submitBtn");
         const projectList = document.querySelector(".project-list ul");
         const addProjectBtn = document.querySelector(".project-list button");
@@ -20,6 +22,8 @@ export function app() {
         const saveProjectBtn = document.querySelector("#saveProjectBtn");
         const heading = document.querySelector(".main h2");
         const inbox = document.querySelector(".inbox");
+        const today = document.querySelector(".today");
+        const upcoming = document.querySelector(".upcoming");
 
         // Create project manager and default "Today" project
         const projectManager = createProjectManager();
@@ -108,7 +112,7 @@ export function app() {
                         if (projectManager.getProject("Today")) {
                             switchProject("Today");
                         } else if (projectManager.projects.length === 1 && projectManager.getProject("Inbox")) {
-                           switchProject("Inbox");
+                            switchProject("Inbox");
                         } else {
                             switchProject(projectManager.projects[0].title);
                         }
@@ -215,11 +219,82 @@ export function app() {
             cancelProjectCreation();
         })
 
+        // -- Nav items helper functions --
+
+        function hideWelcomeView() {
+            // Hide the welcome view
+            todayView.style.display = "none";
+            taskList.style.display = "block";
+            taskListBtn.style.display = "none";
+        }
+
+        function createItems(todo) {
+            const li = document.createElement("li");
+            li.classList.add("task-item", todo.priority);
+            if (todo.completed) li.classList.add("completed");
+
+            li.innerHTML = `
+            <div class="task-content">
+                <strong>${todo.title}</strong>
+                <p>${todo.description || ""}</p>
+                <small>
+                    From: <span class="project-ref">${todo.projectTitle}</span> |
+                    Due: <span class="due-text">${todo.dueDate || "—"}</span> |
+                    Priority: <span class="priority-text ${todo.priority}">${todo.priority}</span>
+                </small>
+            </div>
+        `;
+
+            taskListContainer.appendChild(li);
+        }
+
         // -- Nav items --
 
         inbox.addEventListener("click", () => {
             switchProject("Inbox");
         });
+
+        today.addEventListener("click", () => {
+            heading.textContent = "Today";
+
+            const todayTasks = getTodayTasks(projectManager);
+
+            hideWelcomeView();
+
+            // Clear old list
+            taskListContainer.innerHTML = "";
+
+            // Render today's tasks
+            if (todayTasks.length === 0) {
+                taskListContainer.innerHTML = `<p class="no-tasks">No tasks due today </p>`;
+                return;
+            }
+
+            todayTasks.forEach(todo => {
+                createItems(todo);
+            });
+        })
+
+        upcoming.addEventListener("click", () => {
+            heading.textContent = "Upcoming";
+
+            const upcomingTasks = getUpcomingTasks(projectManager);
+
+            hideWelcomeView();
+
+            // Clear old list
+            taskListContainer.innerHTML = "";
+
+            // Render upcoming's tasks
+            if (upcomingTasks.length === 0) {
+                taskListContainer.innerHTML = `<p class="no-tasks">No tasks due upcoming </p>`;
+                return;
+            }
+
+            upcomingTasks.forEach(todo => {
+                createItems(todo);
+            });
+        })
 
         // --- Initialization ---
 
