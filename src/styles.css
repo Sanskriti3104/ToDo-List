@@ -205,6 +205,31 @@ body {
     background: #3b5fd1;
 }
 
+/* Hide delete icon by default */
+.project-item .fa-trash {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Show only when hovering on project name */
+.project-item:hover .fa-trash {
+  opacity: 1;
+  visibility: visible;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.project-item span {
+  flex: 1;
+}
+
 /* Main content */
 .main {
     flex: 1;

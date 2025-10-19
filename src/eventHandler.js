@@ -116,7 +116,7 @@ export function app() {
                         } else if (projectManager.projects.length === 1 && projectManager.getProject("Inbox")) {
                             switchProject("Inbox");
                         } else {
-                            switchProject(projectManager.projects[0].title);
+                            switchProject(projectManager.projects[1].title);
                         }
                     }
                 }
