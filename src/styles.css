@@ -110,7 +110,7 @@ body {
 }
 
 .project-list i {
-    color: #f6c23e;
+    color: #4e73df;
 }
 
 .project-list ul {
@@ -216,6 +216,7 @@ body {
 .project-item:hover .fa-trash {
   opacity: 1;
   visibility: visible;
+  color: #4e73df;
 }
 
 .project-item {
