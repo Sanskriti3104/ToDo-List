@@ -14,8 +14,9 @@
             <div class="top-bar">
                 <div class="user-info">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <p class="user-name">Hello User</p>
+                    <p class="user-name"></p>
                 </div>
+                <i class="fa fa-edit"></i>
             </div>
 
             <div class="nav-items">
@@ -43,6 +44,18 @@
 
             </div>
         </div>
+        <div id="welcomeModal" class="modal">
+            <div class="modal-content">
+                <h3>Welcome to ToDo-List!</h3>
+                <p>Please enter your name </p>
+                <form id="welcomeForm">
+                    <input type="text" class="userName-title" placeholder="Your Name" required maxlength="20">
+                    <div class="form-buttons edit-form-buttons">
+                        <button type="submit" id="saveUserNameBtn" class="modal-save-btn" disabled>Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="main">
             <h2>Today</h2>
@@ -53,58 +66,59 @@
             </div>
             <div>
 
-            <div class="task-list">
-                <ul></ul>
-                <button class="show-form-btn"><i class="fa fa-plus-circle"></i> Add Tasks</button>
-            </div>
+                <div class="task-list">
+                    <ul></ul>
+                    <button class="show-form-btn"><i class="fa fa-plus-circle"></i> Add Tasks</button>
+                </div>
 
-            <form id="taskForm" action="submit">
-                <div class="task-content">
-                    <input type="text" placeholder="Task Title" name="title" class="task-title"><br>
-                    <input type="text" placeholder="Task Description" name="description"
+                <form id="taskForm" action="submit">
+                    <div class="task-content">
+                        <input type="text" placeholder="Task Title" name="title" class="task-title"><br>
+                        <input type="text" placeholder="Task Description" name="description"
                             class="task-description"><br>
-                </div>
-                <div class="task-info">
-                    <input type="date" name="due-date" class="task-date">
-                    <select name="priority" class="task-priority">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-                </div>
-                <div class="form-buttons">
-                    <button type="button" id="cancelBtn">Cancel</button>
-                    <button id="showFormBtn" class="submitBtn" disabled><i class="fa fa-plus"></i> Add Task</button>
-                </div>
-            </form>
+                    </div>
+                    <div class="task-info">
+                        <input type="date" name="due-date" class="task-date">
+                        <select name="priority" class="task-priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" id="cancelBtn">Cancel</button>
+                        <button id="showFormBtn" class="submitBtn" disabled><i class="fa fa-plus"></i> Add Task</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-    <div id="editTaskModal" class="modal">
-    <div class="modal-content">
-        <h3>Edit Task</h3>
-        <form id="editTaskForm">
-            <input type="hidden" id="editProjectName">
-            <input type="hidden" id="editTodoIndex"> 
+        <div id="editTaskModal" class="modal">
+            <div class="modal-content">
+                <h3>Edit Task</h3>
+                <form id="editTaskForm">
+                    <input type="hidden" id="editProjectName">
+                    <input type="hidden" id="editTodoIndex">
 
-            <div class="task-content">
-                <input type="text" placeholder="Task Title" name="title" class="task-title-edit" required><br>
-                <input type="text" placeholder="Task Description" name="description" class="task-description-edit"><br>
+                    <div class="task-content">
+                        <input type="text" placeholder="Task Title" name="title" class="task-title-edit" required><br>
+                        <input type="text" placeholder="Task Description" name="description"
+                            class="task-description-edit"><br>
+                    </div>
+                    <div class="task-info">
+                        <input type="date" name="due-date" class="task-date-edit">
+                        <select name="priority" class="task-priority-edit">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons edit-form-buttons">
+                        <button type="button" id="cancelEditBtn" class="modal-cancel-btn">Cancel</button>
+                        <button type="submit" id="saveEditBtn" class="modal-save-btn">Save</button>
+                    </div>
+                </form>
             </div>
-            <div class="task-info">
-                <input type="date" name="due-date" class="task-date-edit">
-                <select name="priority" class="task-priority-edit">
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-            </div>
-            <div class="form-buttons edit-form-buttons">
-                <button type="button" id="cancelEditBtn" class="modal-cancel-btn">Cancel</button>
-                <button type="submit" id="saveEditBtn" class="modal-save-btn">Save</button>
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
 </body>
 
 </html>

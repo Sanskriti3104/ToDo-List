@@ -6,6 +6,11 @@ import { getTodayTasks, getUpcomingTasks, getPriorityTasks, getOverDueTasks } fr
 export function app() {
     document.addEventListener("DOMContentLoaded", () => {
         // --- DOM Elements ---
+        const welcomeModal = document.getElementById("welcomeModal");
+        const welcomeForm = document.getElementById("welcomeForm");
+        const saveUserNameBtn = document.getElementById("saveUserNameBtn");
+        const userNameDisplay = document.querySelector(".user-name"); 
+        const userNameEdit = document.querySelector(".top-bar .fa-edit");
         const addTaskBtns = document.querySelectorAll(".show-form-btn");
         const todayView = document.querySelector(".today-view");
         const taskForm = document.getElementById("taskForm");
@@ -54,6 +59,11 @@ export function app() {
 
         // --- Helper Functions ---
 
+        // Function to update the displayed username
+        function updateUserName(name) {
+            userNameDisplay.textContent = `Hello ${name}`;
+        }
+
         //Function to handle form closing 
         function closeForm() {
             taskForm.reset();
@@ -66,6 +76,42 @@ export function app() {
             projectForm.style.display = "none";
             addProjectBtn.style.display = "block";
         }
+
+        // --- Welcome Model Logic ---
+
+        // Check for saved username on load
+        const savedUserName = localStorage.getItem("userName");
+        if (savedUserName) {
+            updateUserName(savedUserName);
+            welcomeModal.style.display = "none";
+        } else {
+            welcomeModal.style.display = "block";
+        }
+
+        // Enable/disable 'Start' button based on input
+        welcomeForm.addEventListener("input", () => {
+            const userName = welcomeForm.querySelector(".userName-title").value.trim();
+            saveUserNameBtn.disabled = !userName;
+        });
+
+        // Handle Welcome Form Submission
+        welcomeForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const userName = welcomeForm.querySelector(".userName-title").value.trim();
+            if(!userName) return;
+
+            if (userName) {
+                localStorage.setItem("userName", userName);
+                updateUserName(userName);
+                welcomeModal.style.display = "none";
+            }
+        });
+
+        //Update userName
+        userNameEdit.addEventListener("click", () => {
+            welcomeModal.style.display = "block";
+        })
 
         // --- Core Application Logic ---
 

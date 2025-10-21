@@ -41,7 +41,7 @@ body {
 }
 
 .user-info {
-    display: flex;
+    display: flex; 
     align-items: center;
     gap: 10px;
 }
@@ -76,6 +76,7 @@ body {
     transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
+.top-bar .fa-edit,
 .nav-items li i,
 .task-list button i,
 .project-list button i {
@@ -592,11 +593,11 @@ body {
   font-size: 0.9rem;
 }
 
-/* --- Modal (Pop-up) Styles --- */
+/* --- Modal Styles --- */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100; /* Sit on top of everything */
+    display: none; 
+    position: fixed;
+    z-index: 100; 
     left: 0;
     top: 0;
     width: 100%; 
@@ -622,6 +623,7 @@ body {
     margin-bottom: 20px;
 }
 
+#welcomeForm input[type="text"],
 #editTaskForm input[type="text"],
 #editTaskForm .task-info input,
 #editTaskForm .task-info select {
