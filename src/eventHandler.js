@@ -9,6 +9,7 @@ export function app() {
         const welcomeModal = document.getElementById("welcomeModal");
         const welcomeForm = document.getElementById("welcomeForm");
         const saveUserNameBtn = document.getElementById("saveUserNameBtn");
+        const cancelUserNameBtn = document.getElementById("cancelUserNameBtn");
         const userNameDisplay = document.querySelector(".user-name"); 
         const userNameEdit = document.querySelector(".top-bar .fa-edit");
         const addTaskBtns = document.querySelectorAll(".show-form-btn");
@@ -112,6 +113,10 @@ export function app() {
         userNameEdit.addEventListener("click", () => {
             welcomeModal.style.display = "block";
         })
+
+        cancelUserNameBtn.addEventListener("click", () => {
+            welcomeModal.style.display = "none";
+        });
 
         // --- Core Application Logic ---
 
