@@ -26,6 +26,11 @@ export function app() {
         const today = document.querySelector(".today");
         const upcoming = document.querySelector(".upcoming");
         const priority = document.querySelector(".priority");
+        const editTaskModal = document.getElementById("editTaskModal");
+        const cancelEditBtn = document.getElementById("cancelEditBtn");
+        const editTaskForm = document.getElementById("editTaskForm");
+        const projectNameInputEdit = document.getElementById("editProjectName");
+        const todoIndexInputEdit = document.getElementById("editTodoIndex");
 
         // Create project manager and default "Today" project
         const projectManager = createProjectManager();
@@ -254,11 +259,11 @@ export function app() {
 
         function handleNavClicks(fetchTashFn, headingText) {
             heading.textContent = headingText;
-            
+
             const tasks = fetchTashFn(projectManager);
-            
+
             hideWelcomeView();
-           
+
             taskListContainer.innerHTML = "";
 
             if (!tasks || tasks.length === 0) {
@@ -289,6 +294,57 @@ export function app() {
 
         overDue.addEventListener("click", () => {
             handleNavClicks(getOverDueTasks, "OverDue");
+        });
+
+        // Function to close the modal
+        function closeEditModal() {
+            editTaskModal.style.display = "none";
+            editTaskForm.reset();
+        }
+
+        // Close modal on Cancel button click
+        cancelEditBtn.addEventListener("click", closeEditModal);
+
+        // Close modal if user clicks outside of it
+        window.addEventListener("click", (event) => {
+            if (event.target == editTaskModal) {
+                closeEditModal();
+            }
+        });
+
+        // Handle modal form submission (Save)
+        editTaskForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const currentProject = projectManager.getProject(projectNameInputEdit.value);
+            const index = parseInt(todoIndexInputEdit.value);
+
+            if (!currentProject || index === undefined) return;
+
+            const todoToEdit = currentProject.todos[index];
+
+            // Get updated values from modal form
+            const newTitle = editTaskForm.querySelector(".task-title-edit").value.trim();
+            const newDesc = editTaskForm.querySelector(".task-description-edit").value.trim();
+            const newDueDate = editTaskForm.querySelector(".task-date-edit").value;
+            const newPriority = editTaskForm.querySelector(".task-priority-edit").value;
+
+            if (!newTitle) {
+                alert("Title cannot be empty!");
+                return;
+            }
+
+            // Update the todo item properties
+            todoToEdit.title = newTitle;
+            todoToEdit.description = newDesc;
+            todoToEdit.dueDate = newDueDate;
+            todoToEdit.priority = newPriority;
+
+            // Re-render the tasks for the current project
+            renderTasks(currentProject, taskListContainer);
+
+            // Close the modal
+            closeEditModal();
         });
 
         // --- Initialization ---

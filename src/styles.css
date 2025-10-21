@@ -591,3 +591,86 @@ body {
   color: #aaa;
   font-size: 0.9rem;
 }
+
+/* --- Modal (Pop-up) Styles --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-content h3 {
+    font-size: 20px;
+    color: #4e73df;
+    margin-bottom: 20px;
+}
+
+#editTaskForm input[type="text"],
+#editTaskForm .task-info input,
+#editTaskForm .task-info select {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+}
+
+#editTaskForm .task-info {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.edit-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.modal-cancel-btn,
+.modal-save-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.modal-cancel-btn {
+    background: #6c757d;
+    color: white;
+}
+.modal-cancel-btn:hover {
+    background: #5a6268;
+}
+
+.modal-save-btn {
+    background: #4e73df;
+    color: white;
+}
+.modal-save-btn:hover {
+    background: #3b5fd1;
+}

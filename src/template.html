@@ -79,6 +79,32 @@
             </form>
         </div>
     </div>
+    <div id="editTaskModal" class="modal">
+    <div class="modal-content">
+        <h3>Edit Task</h3>
+        <form id="editTaskForm">
+            <input type="hidden" id="editProjectName">
+            <input type="hidden" id="editTodoIndex"> 
+
+            <div class="task-content">
+                <input type="text" placeholder="Task Title" name="title" class="task-title-edit" required><br>
+                <input type="text" placeholder="Task Description" name="description" class="task-description-edit"><br>
+            </div>
+            <div class="task-info">
+                <input type="date" name="due-date" class="task-date-edit">
+                <select name="priority" class="task-priority-edit">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-buttons edit-form-buttons">
+                <button type="button" id="cancelEditBtn" class="modal-cancel-btn">Cancel</button>
+                <button type="submit" id="saveEditBtn" class="modal-save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 
 </html>

@@ -8,7 +8,7 @@ export function getOverDueTasks(projectManager) {
         project.todos.forEach(todo => {
             if (todo.dueDate) {
                 const due = parseISO(todo.dueDate);
-                if (isPast(due)) {
+                if (isPast(due) && !isToday(due)) {
                     // Clone todo but include info about which project it belongs to
                     allOverDueTasks.push({ ...todo, projectTitle: project.title });
                 }
