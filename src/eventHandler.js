@@ -1,3 +1,5 @@
+console.log("working");
+
 import { createTodo, createProject, createProjectManager } from "./model";
 import { renderTasks, renderProjects } from "./render";
 import { getTodayTasks, getUpcomingTasks, getPriorityTasks, getOverDueTasks } from "./navItems";
@@ -57,6 +59,70 @@ export function app() {
         if (!inboxProject) {
             inboxProject = createProject("Inbox");
             projectManager.addProject(inboxProject);
+        }
+
+        // --- Add Dummy Data for First-Time Users ---
+        const dataExists = localStorage.getItem("todoData");
+        if (!dataExists) {
+            // Create some demo projects
+            const personalProject = createProject("Personal");
+
+            todayProject.addTodo(
+                createTodo(
+                    "Welcome to your To-Do List 🎉",
+                    "Click the edit ✏️ icon or delete 🗑️ icons to manage tasks.",
+                    (() => {
+                        const d = new Date();
+                        d.setDate(d.getDate());
+                        return d.toISOString().split("T")[0];
+                    })(),
+                    "low"
+                )
+            );
+            todayProject.addTodo(
+                createTodo(
+                    "Try completing a task ✅",
+                    "Click the checkmark icon to mark tasks as done!",
+                    (() => {
+                        const d = new Date();
+                        d.setDate(d.getDate());
+                        return d.toISOString().split("T")[0];
+                    })(),
+                    "medium"
+                )
+            );
+
+            // Add tasks to "Personal" project
+            personalProject.addTodo(
+                createTodo(
+                    "Buy groceries 🛒",
+                    "Milk, eggs, bread, and veggies.",
+                    (() => {
+                        const d = new Date();
+                        d.setDate(d.getDate() - 1);
+                        return d.toISOString().split("T")[0]; // yesterday → overdue
+                    })(),
+                    "low"
+                )
+            );
+            personalProject.addTodo(
+                createTodo(
+                    "Plan weekend trip 🏞️",
+                    "Check train timings and book tickets.",
+                    (() => {
+                        const d = new Date();
+                        d.setDate(d.getDate() + 7);
+                        return d.toISOString().split("T")[0]; // next week
+                    })(),
+                    "medium"
+                )
+            );
+
+            // Add projects to manager
+            projectManager.addProject(personalProject);
+
+            // Save everything immediately
+            saveToLocalStorage(projectManager);
         }
 
         // Track the currently active project
@@ -402,7 +468,7 @@ export function app() {
             // Re-render the tasks for the current project
             renderTasks(currentProject, taskListContainer);
             saveToLocalStorage(projectManager);
-            
+
             // Close the modal
             closeEditModal();
         });
