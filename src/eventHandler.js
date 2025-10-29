@@ -1,6 +1,7 @@
 import { createTodo, createProject, createProjectManager } from "./model";
 import { renderTasks, renderProjects } from "./render";
 import { getTodayTasks, getUpcomingTasks, getPriorityTasks, getOverDueTasks } from "./navItems";
+import { saveToLocalStorage, loadFromLocalStorage } from "./storage.js";
 
 // Main application function, exported to be called from index.js
 export function app() {
@@ -10,7 +11,7 @@ export function app() {
         const welcomeForm = document.getElementById("welcomeForm");
         const saveUserNameBtn = document.getElementById("saveUserNameBtn");
         const cancelUserNameBtn = document.getElementById("cancelUserNameBtn");
-        const userNameDisplay = document.querySelector(".user-name"); 
+        const userNameDisplay = document.querySelector(".user-name");
         const userNameEdit = document.querySelector(".top-bar .fa-edit");
         const addTaskBtns = document.querySelectorAll(".show-form-btn");
         const todayView = document.querySelector(".today-view");
@@ -40,6 +41,9 @@ export function app() {
 
         // Create project manager and default "Today" project
         const projectManager = createProjectManager();
+
+        // Load saved data
+        loadFromLocalStorage(projectManager, createProject, createTodo);
 
         // Check if "Today" exists before creating it 
         let todayProject = projectManager.getProject("Today");
@@ -100,7 +104,7 @@ export function app() {
             e.preventDefault();
 
             const userName = welcomeForm.querySelector(".userName-title").value.trim();
-            if(!userName) return;
+            if (!userName) return;
 
             if (userName) {
                 localStorage.setItem("userName", userName);
@@ -149,6 +153,7 @@ export function app() {
             }
 
             renderTasks(selectedProject, taskListContainer);
+            saveToLocalStorage(projectManager);
         }
 
         // Function to handle project switching (event listener delegate)
@@ -164,6 +169,7 @@ export function app() {
                 if (projectIndex !== -1) {
                     projectManager.removeProject(projectIndex);
                     renderProjects(projectManager, projectList, activeProject);
+                    saveToLocalStorage(projectManager);
 
                     //If deleted project was active
                     if (activeProject.title === projectTitle) {
@@ -226,6 +232,7 @@ export function app() {
             activeProject.addTodo(newTodo);
 
             renderTasks(activeProject, taskListContainer);
+            saveToLocalStorage(projectManager);
 
             // Clear inputs and disable button, but keep form open
             taskForm.reset();
@@ -274,6 +281,7 @@ export function app() {
             renderProjects(projectManager, projectList, activeProject);
             switchProject(projectName);
 
+            saveToLocalStorage(projectManager);
             cancelProjectCreation();
         })
 
@@ -393,7 +401,8 @@ export function app() {
 
             // Re-render the tasks for the current project
             renderTasks(currentProject, taskListContainer);
-
+            saveToLocalStorage(projectManager);
+            
             // Close the modal
             closeEditModal();
         });
