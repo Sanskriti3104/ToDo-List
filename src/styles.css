@@ -6,9 +6,67 @@
     font-family: "Segoe UI", sans-serif;
 }
 
+/* Light Theme (Default) */
+:root {
+    --bg-gradient: linear-gradient(135deg, #fdfbfb, #ebedee);
+    --text-color: #333;
+    --sidebar-bg: #ffffff;
+    --sidebar-border: #e2e6ec;
+    --card-bg: #fff;
+    --main-bg: #f9fafc;
+    --accent-color: #4e73df;
+    --accent-hover: #3b5fd1;
+    --muted-text: #666;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --hover-bg: #f1f4ff;
+    --active-bg: #e8ecff;
+    --button-shadow: 0 2px 5px rgba(78, 115, 223, 0.2);
+    --button-shadow-hover: 0 4px 8px rgba(78, 115, 223, 0.3);
+    --cancel-bg: #6c757d;
+    --cancel-hover-bg: #5a6268;
+}
+
+/*  Dark Theme  */
+body.dark-theme {
+    --bg-gradient: linear-gradient(135deg, #121212, #1f1f1f);
+    --text-color: #e0e0e0;
+    --sidebar-bg: #1e1e1e;
+    --sidebar-border: #333333;
+    --card-bg: #282828;
+    --main-bg: #121212;
+    --accent-color: #8ab4f8;
+    --accent-hover: #a5c7fd;
+    --muted-text: #b0b0b0;
+    --shadow-color: rgba(0, 0, 0, 0.6);
+    --hover-bg: #333333;
+    --active-bg: #444444;
+    --button-shadow: 0 2px 5px rgba(138, 180, 248, 0.15);
+    --button-shadow-hover: 0 3px 6px rgba(138, 180, 248, 0.15);
+    --cancel-bg: #444;
+    --cancel-hover-bg: #555;
+}
+
 body {
-    background: linear-gradient(135deg, #fdfbfb, #ebedee);
-    color: #333;
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    transition: background 0.3s ease;
+}
+
+/* Theme Toggle Icon */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 25px;
+    font-size: 20px;
+    color: var(--accent-color);
+    cursor: pointer;
+    z-index: 999;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--accent-hover);
+    transform: scale(1.1);
 }
 
 /* Layout */
@@ -17,19 +75,20 @@ body {
     height: 100vh;
 }
 
-/* Sidebar */
+/*  Sidebar  */
 .navigation-bar {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 260px;
-    background: #ffffff;
-    border-right: 1px solid #e2e6ec;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
     display: flex;
     flex-direction: column;
     padding: 20px;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 0 8px var(--shadow-color);
+    transition: background 0.3s ease;
 }
 
 /* User Info */
@@ -41,20 +100,20 @@ body {
 }
 
 .user-info {
-    display: flex; 
+    display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .user-info i {
     font-size: 22px;
-    color: #4e73df;
+    color: var(--accent-color);
 }
 
 .user-name {
     font-weight: 600;
     font-size: 16px;
-    color: #2f3640;
+    color: var(--text-color);
 }
 
 /* Navigation Items */
@@ -71,7 +130,7 @@ body {
     padding: 12px 14px;
     border-radius: 10px;
     cursor: pointer;
-    color: #444;
+    color: var(--muted-text);
     font-size: 15px;
     transition: background 0.3s, color 0.3s, transform 0.2s;
 }
@@ -81,15 +140,16 @@ body {
 .task-list button i,
 .project-list button i {
     font-size: 16px;
-    color: #4e73df;
+    color: var(--accent-color);
     transition: color 0.3s;
 }
 
 .nav-items li:hover,
 .task-list button:hover,
 .project-list button:hover {
-    color: #4e73df;
-    font-size: 16px;
+    background: var(--hover-bg);
+    color: var(--accent-color);
+    font-size: 15px;
     transform: translateX(3px);
 }
 
@@ -103,7 +163,7 @@ body {
     align-items: center;
     gap: 8px;
     font-size: 14px;
-    color: #777;
+    color: var(--muted-text);
     font-weight: 600;
     margin-bottom: 15px;
     text-transform: uppercase;
@@ -111,7 +171,7 @@ body {
 }
 
 .project-list i {
-    color: #4e73df;
+    color: var(--accent-color);
 }
 
 .project-list ul {
@@ -123,19 +183,19 @@ body {
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-    color: #333;
+    color: var(--text-color);
     transition: background 0.3s, color 0.3s;
 }
 
 .project-list ul li:hover {
-    background: #f1f4ff;
-    color: #4e73df;
+    background: var(--hover-bg);
+    color: var(--accent-color);
 }
 
 .project-list ul li.active {
-    background: #e8ecff;
+    background: var(--active-bg);
     font-weight: 600;
-    color: #4e73df;
+    color: var(--accent-color);
 }
 
 .project-list button {
@@ -150,24 +210,25 @@ body {
     gap: 10px;
     margin-top: 12px;
     padding: 12px;
-    background: #f8f9fc;
-    border: 1px solid #ddd;
+    background: var(--card-bg);
+    border: 1px solid var(--sidebar-border);
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: background 0.3s ease;
 }
 
 .project-form input {
     padding: 8px;
     border-radius: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--sidebar-border);
     outline: none;
     font-size: 14px;
-    background: #fff;
-    color: #333;
+    background: var(--main-bg);
+    color: var(--text-color);
 }
 
 .project-form input:focus {
-    border-color: #4e73df;
+    border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(78, 115, 223, 0.2);
 }
 
@@ -186,67 +247,73 @@ body {
     font-weight: bold;
     cursor: pointer;
     font-size: 14px;
+    transition: background 0.3s, box-shadow 0.3s, opacity 0.3s;
 }
 
 #cancelProjectBtn {
-    background: #666;
-    color: #fff;
+    background: var(--cancel-bg);
+    color: white;
 }
 
 #cancelProjectBtn:hover {
-    background: #555;
+    background: var(--cancel-hover-bg);
 }
 
+/* Project Save Button */
 #saveProjectBtn {
-    background: #4e73df;
-    color: #fff;
+    background: var(--accent-color);
+    color: white;
+    box-shadow: var(--button-shadow);
 }
 
-#saveProjectBtn:hover {
-    background: #3b5fd1;
+#saveProjectBtn:hover:not(:disabled) {
+    background: var(--accent-hover);
+    box-shadow: var(--button-shadow-hover);
+    transform: translateY(-1px);
 }
 
 /* Hide delete icon by default */
 .project-item .fa-trash {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 /* Show only when hovering on project name */
 .project-item:hover .fa-trash {
-  opacity: 1;
-  visibility: visible;
-  color: #4e73df;
+    opacity: 1;
+    visibility: visible;
+    color: var(--accent-color);
 }
 
 .project-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 10px;
-  cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    cursor: pointer;
 }
 
 .project-item span {
-  flex: 1;
+    flex: 1;
 }
 
-/* Main content */
+/*  Main content  */
 .main {
     flex: 1;
     padding: 40px;
-    background: #f9fafc;
+    background: var(--main-bg);
     position: relative;
     overflow-y: auto;
     height: 100vh;
     margin-left: 260px;
+    transition: background 0.3s ease;
 }
 
 .main h2 {
     font-size: 24px;
     font-weight: 600;
-    color: #2f3640;
+    color: var(--text-color);
     margin-bottom: 20px;
 }
 
@@ -265,12 +332,12 @@ body {
 .today-view h3 {
     font-size: 20px;
     font-weight: 600;
-    color: #2f3640;
+    color: var(--text-color);
 }
 
 .today-view p {
     font-size: 16px;
-    color: #666;
+    color: var(--muted-text);
 }
 
 /* Add Task Button */
@@ -278,14 +345,14 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(135deg, #4e9af1, #4e73df);
-    padding: 9px 30px;
+    background: var(--accent-color);
+    padding: 10px 30px;
     border: none;
     border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(78, 115, 223, 0.25);
+    box-shadow: var(--button-shadow);
     cursor: pointer;
     transition: all 0.3s ease;
-    color: #fff;
+    color: white;
     font-weight: 600;
     font-size: 15px;
 }
@@ -295,9 +362,9 @@ body {
 }
 
 .today-view button:hover {
-    background: linear-gradient(135deg, #5aa5ff, #516bdf);
-    transform: scale(1);
-    box-shadow: 0px 6px 15px rgba(78, 115, 223, 0.35);
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--button-shadow-hover);
 }
 
 /* Form style */
@@ -305,11 +372,12 @@ body {
     display: none;
     margin-top: 20px;
     padding: 10px;
-    border: 1px solid #ccc;
-    background: #f9f9f9;
+    border: 1px solid var(--sidebar-border);
+    background: var(--card-bg);
     border-radius: 8px;
-    color: #2d2d2d;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: var(--text-color);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: background 0.3s ease;
 }
 
 /* Input fields */
@@ -320,8 +388,8 @@ body {
     border: none;
     border-radius: 6px;
     outline: none;
-    background: #fff;
-    color: #3a3a3a;
+    background: var(--main-bg);
+    color: var(--text-color);
 }
 
 /* Due date + priority below */
@@ -335,11 +403,11 @@ body {
 .task-info select {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--sidebar-border);
     border-radius: 6px;
     outline: none;
-    background: #fff;
-    color: #333;
+    background: var(--main-bg);
+    color: var(--text-color);
     font-size: 14px;
 }
 
@@ -356,34 +424,44 @@ body {
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
+    transition: background 0.3s, box-shadow 0.3s, opacity 0.3s;
 }
 
 #cancelBtn {
-    background: #444;
-    color: #fff;
+    background: var(--cancel-bg);
+    color: white;
 }
 
 #cancelBtn:hover {
-    background: #666;
+    background: var(--cancel-hover-bg);
 }
 
+/* Form Submit Button */
 .submitBtn {
-    background: #516bdf;
-    color: #fff;
+    background: var(--accent-color);
+    color: white;
+    box-shadow: var(--button-shadow);
 }
 
-.submitBtn:hover {
-    background: #516bdf;
+.submitBtn:hover:not(:disabled) {
+    background: var(--accent-hover);
+    box-shadow: var(--button-shadow-hover);
+    transform: translateY(-1px);
 }
 
 .submitBtn:disabled,
-#saveProjectBtn:disabled {
-    opacity: 0.6;
+#saveProjectBtn:disabled,
+#saveUserNameBtn:disabled,
+.modal-save-btn:disabled {
+    opacity: 0.5;
+    background: var(--accent-color);
     cursor: not-allowed;
     pointer-events: none;
+    box-shadow: none !important;
+    transform: none !important;
 }
 
-/* --- Task list style --- */
+/* Task list style */
 .task-list {
     display: none;
 }
@@ -400,15 +478,16 @@ body {
 }
 
 .task-item {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--sidebar-border);
     padding: 12px;
     margin-bottom: 10px;
     position: relative;
     padding-left: 14px;
     border-left: 6px solid transparent;
     border-radius: 6px;
-    background: #fff;
+    background: var(--card-bg);
     transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px var(--shadow-color);
 }
 
 .task-item.high {
@@ -425,12 +504,12 @@ body {
 
 .task-item strong {
     font-size: 16px;
-    color: #2f3640;
+    color: var(--text-color);
 }
 
 .task-item p {
     margin: 5px 0;
-    color: #555;
+    color: var(--muted-text);
 }
 
 .task-item small {
@@ -447,19 +526,19 @@ body {
 }
 
 .task-item.due-today .due-text {
-    color: #27ae60;
+    color: #2ecc71;
 }
 
 .task-item.due-tomorrow .due-text,
 .task-item.due-future .due-text {
-    color: #2980b9;
+    color: #3498db;
 }
 
 .task-item.overdue .due-text {
     color: #e74c3c;
 }
 
-/* --- PRIORITY TEXT COLORS & STYLE --- */
+/* PRIORITY TEXT COLORS & STYLE */
 .priority-text {
     font-weight: 600;
     margin-left: 4px;
@@ -487,13 +566,13 @@ body {
 
 .task-actions i {
     cursor: pointer;
-    color: #666;
+    color: var(--muted-text);
     font-size: 16px;
     transition: color 0.3s;
 }
 
 .task-actions i:hover {
-    color: #4e73df;
+    color: var(--accent-color);
 }
 
 .task-item.completed .task-content {
@@ -508,118 +587,122 @@ body {
 }
 
 .no-tasks {
-  text-align: center;
-  color: #aaa;
-  margin-top: 1rem;
+    text-align: center;
+    color: var(--muted-text);
+    margin-top: 1rem;
 }
 .project-ref {
-  color: #58a6ff;
-  font-weight: 500;
+    color: var(--accent-color);
+    font-weight: 500;
 }
 
+/* Priority View Styles */
 .priority-heading {
-  text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: #fff;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
 }
 
 .priority-section {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .priority-title {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 8px;
-  width: fit-content;
-  font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
+    width: fit-content;
+    font-weight: 600;
 }
 
 .priority-title.high {
-  background-color: #ff4d4f;
-  color: #fff;
+    background-color: #c0392b;
+    color: white;
 }
 
 .priority-title.medium {
-  background-color: #ffa940;
-  color: #fff;
+    background-color: #d35400;
+    color: white;
 }
 
 .priority-title.low {
-  background-color: #52c41a;
-  color: #fff;
+    background-color: #f1c40f;
+    color: white;
 }
 
 .priority-task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .priority-task {
-  display: flex;
-  justify-content: space-between;
-  background-color: #1f1f1f;
-  padding: 0.6rem 0.8rem;
-  border-radius: 6px;
-  transition: transform 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--card-bg);
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    transition: transform 0.2s ease, background 0.3s;
+    box-shadow: 0 1px 3px var(--shadow-color);
 }
 
 .priority-task:hover {
-  transform: scale(1.02);
+    transform: scale(1.01);
 }
 
 .priority-task.high {
-  border-left: 4px solid #ff4d4f;
+    border-left: 4px solid #e74c3c;
 }
 
 .priority-task.medium {
-  border-left: 4px solid #ffa940;
+    border-left: 4px solid #f39c12;
 }
 
 .priority-task.low {
-  border-left: 4px solid #52c41a;
+    border-left: 4px solid #f1c40f;
 }
 
 .task-title {
-  color: #fff;
-  font-weight: 500;
+    color: var(--text-color);
+    font-weight: 500;
 }
 
 .task-project {
-  color: #aaa;
-  font-size: 0.9rem;
+    color: var(--muted-text);
+    font-size: 0.9rem;
 }
 
-/* --- Modal Styles --- */
+/* Modal Styles */
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
-    z-index: 100; 
+    z-index: 100;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
+    width: 100%;
+    height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5); 
+    background-color: rgba(0, 0, 0, 0.75);
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 10% auto; 
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    margin: 10% auto;
+    padding: 25px;
+    border: 1px solid var(--sidebar-border);
+    width: 80%;
     max-width: 500px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 20px var(--shadow-color);
+    transition: background 0.3s;
 }
 
 .modal-content h3 {
     font-size: 20px;
-    color: #4e73df;
+    color: var(--accent-color);
     margin-bottom: 20px;
 }
 
@@ -630,11 +713,11 @@ body {
     width: 100%;
     padding: 10px;
     margin: 6px 0;
-    border: 1px solid #ccc;
+    border: 1px solid var(--sidebar-border);
     border-radius: 6px;
     outline: none;
-    background: #fff;
-    color: #333;
+    background: var(--main-bg);
+    color: var(--text-color);
     font-size: 14px;
 }
 
@@ -658,21 +741,27 @@ body {
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, box-shadow 0.3s, opacity 0.3s;
 }
 
 .modal-cancel-btn {
-    background: #6c757d;
+    background: var(--cancel-bg);
     color: white;
-}
-.modal-cancel-btn:hover {
-    background: #5a6268;
 }
 
-.modal-save-btn {
-    background: #4e73df;
-    color: white;
+.modal-cancel-btn:hover {
+    background: var(--cancel-hover-bg);
 }
-.modal-save-btn:hover {
-    background: #3b5fd1;
+
+/* Modal Save Button */
+.modal-save-btn {
+    background: var(--accent-color);
+    color: white;
+    box-shadow: var(--button-shadow);
+}
+
+.modal-save-btn:hover:not(:disabled) {
+    background: var(--accent-hover);
+    box-shadow: var(--button-shadow-hover);
+    transform: translateY(-1px);
 }

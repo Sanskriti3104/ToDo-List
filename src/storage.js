@@ -1,5 +1,3 @@
-// storage.js
-
 export function saveToLocalStorage(projectManager) {
     // Save the entire projectManager (all projects + todos)
     localStorage.setItem("todoData", JSON.stringify(projectManager.projects));
