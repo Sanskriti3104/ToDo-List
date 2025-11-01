@@ -14,7 +14,6 @@ export function app() {
         const userNameDisplay = document.querySelector(".user-name");
         const userNameEdit = document.querySelector(".top-bar .fa-edit");
         const addTaskBtns = document.querySelectorAll(".show-form-btn");
-        const todayView = document.querySelector(".today-view");
         const taskForm = document.getElementById("taskForm");
         const cancelBtn = document.getElementById("cancelBtn");
         const taskListContainer = document.querySelector(".task-list ul");
@@ -45,13 +44,6 @@ export function app() {
         // Load saved data
         loadFromLocalStorage(projectManager, createProject, createTodo);
 
-        // Check if "Today" exists before creating it 
-        let todayProject = projectManager.getProject("Today");
-        if (!todayProject) {
-            todayProject = createProject("Today");
-            projectManager.addProject(todayProject);
-        }
-
         //Check if "Inbox" exists before creating it
         let inboxProject = projectManager.getProject("Inbox");
         if (!inboxProject) {
@@ -63,9 +55,10 @@ export function app() {
         const dataExists = localStorage.getItem("todoData");
         if (!dataExists) {
             // Create some demo projects
+            const gettingStarted = createProject("Getting Started");
             const personalProject = createProject("Personal");
 
-            todayProject.addTodo(
+            gettingStarted.addTodo(
                 createTodo(
                     "Welcome to your To-Do List 🎉",
                     "Click the edit ✏️ icon or delete 🗑️ icons to manage tasks.",
@@ -77,7 +70,7 @@ export function app() {
                     "low"
                 )
             );
-            todayProject.addTodo(
+            gettingStarted.addTodo(
                 createTodo(
                     "Try completing a task ✅",
                     "Click the checkmark icon to mark tasks as done!",
@@ -117,6 +110,7 @@ export function app() {
             );
 
             // Add projects to manager
+            projectManager.addProject(gettingStarted);
             projectManager.addProject(personalProject);
 
             // Save everything immediately
@@ -124,7 +118,8 @@ export function app() {
         }
 
         // Track the currently active project
-        let activeProject = todayProject;
+        let activeProject = projectManager.projects[1];
+        openActiveProject();
 
         // --- Helper Functions ---
 
@@ -144,6 +139,14 @@ export function app() {
             projectForm.reset();
             projectForm.style.display = "none";
             addProjectBtn.style.display = "block";
+        }
+
+        function openActiveProject() {
+            if (projectManager.projects.length === 1 && projectManager.getProject("Inbox")) {
+                switchProject("Inbox");
+            } else {
+                switchProject(projectManager.projects[1].title);
+            }
         }
 
         // --- Welcome Model Logic ---
@@ -206,15 +209,8 @@ export function app() {
 
             closeForm(); // Close the task form when switching projects
 
-            if (projectName === "Today" && todayProject.todos.length === 0) {
-                todayView.style.display = "flex";
-                taskListBtn.style.display = "none";
-                document.querySelector(".task-list").style.display = "none";
-            } else {
-                todayView.style.display = "none";
-                document.querySelector(".task-list").style.display = "block";
-                taskListBtn.style.display = "flex";
-            }
+            document.querySelector(".task-list").style.display = "block";
+            taskListBtn.style.display = "flex";
 
             renderTasks(selectedProject, taskListContainer);
             saveToLocalStorage(projectManager);
@@ -237,13 +233,7 @@ export function app() {
 
                     //If deleted project was active
                     if (activeProject.title === projectTitle) {
-                        if (projectManager.getProject("Today")) {
-                            switchProject("Today");
-                        } else if (projectManager.projects.length === 1 && projectManager.getProject("Inbox")) {
-                            switchProject("Inbox");
-                        } else {
-                            switchProject(projectManager.projects[1].title);
-                        }
+                        openActiveProject();
                     }
                 }
                 return;
@@ -257,7 +247,7 @@ export function app() {
         // Show form on "Add Task" click
         addTaskBtns.forEach(btn => {
             btn.addEventListener("click", () => {
-                todayView.style.display = "none";     // hide welcome view
+                //todayView.style.display = "none";     // hide welcome view
                 document.querySelector(".task-list").style.display = "block"; // show task list section
                 taskListBtn.style.display = "none";
                 taskForm.style.display = "block";     // show form
@@ -353,7 +343,6 @@ export function app() {
 
         function hideWelcomeView() {
             // Hide the welcome view
-            todayView.style.display = "none";
             taskList.style.display = "block";
             taskListBtn.style.display = "none";
             closeForm();
@@ -475,6 +464,6 @@ export function app() {
 
         // Render initial project list and tasks
         renderProjects(projectManager, projectList, activeProject);
-        switchProject("Today"); // Ensure "Today" is active and its tasks are shown
+        switchProject("Getting Started"); // Ensure "Getting Started" is active and its tasks are shown
     });
 } 
