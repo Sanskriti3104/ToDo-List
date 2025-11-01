@@ -2,6 +2,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -10,6 +11,7 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    publicPath: "./",
   },
   devtool: "eval-source-map",
   devServer: {
@@ -24,6 +26,9 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "styles.css",
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "public/favicon.ico", to: "" }],
     }),
   ],
   module: {
