@@ -97,6 +97,58 @@ export function app() {
                     "low"
                 )
             );
+            gettingStarted.addTodo(
+                createTodo(
+                    "Explore navigation tabs 🧭",
+                    "Click 'Inbox', 'Upcoming', or 'Priority' to view categorized tasks.",
+                    (() => {
+                        const d = new Date();
+                        d.setDate(d.getDate());
+                        return d.toISOString().split("T")[0];
+                    })(),
+                    "medium"
+                )
+            );
+
+            gettingStarted.addTodo(
+                createTodo(
+                    "Try toggling the theme 🌗",
+                    "Use the theme switch in the navigation bar to switch between light and dark modes.",
+                    (() => {
+                        const d = new Date();
+                        d.setDate(d.getDate());
+                        return d.toISOString().split("T")[0];
+                    })(),
+                    "high"
+                )
+            );
+
+            gettingStarted.addTodo(
+                createTodo(
+                    "Create your own project 🗂️",
+                    "Add a new project from the sidebar and organize your tasks there.",
+                    (() => {
+                        const d = new Date();
+                        d.setDate(d.getDate() + 1);
+                        return d.toISOString().split("T")[0]; // tomorrow
+                    })(),
+                    "high"
+                )
+            );
+
+            gettingStarted.addTodo(
+                createTodo(
+                    "Change task priority ⚡",
+                    "While editing a task, try changing its priority (Low, Medium, High).",
+                    (() => {
+                        const d = new Date();
+                        d.setDate(d.getDate() + 2);
+                        return d.toISOString().split("T")[0];
+                    })(),
+                    "medium"
+                )
+            );
+
             personalProject.addTodo(
                 createTodo(
                     "Plan weekend trip 🏞️",
