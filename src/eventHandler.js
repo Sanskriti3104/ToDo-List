@@ -2,6 +2,7 @@ import { createTodo, createProject, createProjectManager } from "./model";
 import { renderTasks, renderProjects } from "./render";
 import { getTodayTasks, getUpcomingTasks, getPriorityTasks, getOverDueTasks } from "./navItems";
 import { saveToLocalStorage, loadFromLocalStorage } from "./storage.js";
+import { inboxProjectView } from "./inboxView.js";
 
 // Main application function, exported to be called from index.js
 export function app() {
@@ -141,9 +142,11 @@ export function app() {
             addProjectBtn.style.display = "block";
         }
 
+        // Function to open the active project
         function openActiveProject() {
             if (projectManager.projects.length === 1 && projectManager.getProject("Inbox")) {
                 switchProject("Inbox");
+                inboxProjectView(projectManager, taskListContainer);
             } else {
                 switchProject(projectManager.projects[1].title);
             }
@@ -247,7 +250,6 @@ export function app() {
         // Show form on "Add Task" click
         addTaskBtns.forEach(btn => {
             btn.addEventListener("click", () => {
-                //todayView.style.display = "none";     // hide welcome view
                 document.querySelector(".task-list").style.display = "block"; // show task list section
                 taskListBtn.style.display = "none";
                 taskForm.style.display = "block";     // show form
@@ -390,6 +392,7 @@ export function app() {
 
         inbox.addEventListener("click", () => {
             switchProject("Inbox");
+            inboxProjectView(projectManager, taskListContainer);
         });
 
         today.addEventListener("click", () => {

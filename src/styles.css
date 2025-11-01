@@ -716,3 +716,56 @@ body {
     box-shadow: var(--button-shadow-hover);
     transform: translateY(-1px);
 }
+
+/* Inbox-view */
+.inbox-view {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.inbox-view h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.inbox-view p {
+    font-size: 16px;
+    color: var(--muted-text);
+}
+
+/* Add Task Button */
+.inbox-view button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-color);
+    padding: 10px 30px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: var(--button-shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.inbox-view button i {
+    font-size: 16px;
+    color: white;
+}
+
+.inbox-view button:hover {
+    background: var(--accent-hover);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--button-shadow-hover);
+}
